@@ -12,12 +12,14 @@
     --popover-foreground: 336 44% 20%;
     --primary: 336 84% 70%; /* Rose bonbon */
     --primary-foreground: 336 44% 10%;
+    --primary-dark: 336 70% 55%; /* Darker pink for shadow */
     --secondary: 348 83% 90%;
     --secondary-foreground: 336 44% 20%;
     --muted: 348 83% 92%;
     --muted-foreground: 336 44% 40%;
     --accent: 30 40% 85%; /* Light Brown */
     --accent-foreground: 30 20% 25%;
+    --accent-dark: 30 30% 60%; /* Darker brown for shadow */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 336 84% 90%;
@@ -50,12 +52,14 @@
     --popover-foreground: 0 0% 98%;
     --primary: 336 84% 70%;
     --primary-foreground: 336 44% 10%;
+    --primary-dark: 336 70% 55%;
     --secondary: 348 83% 20%;
     --secondary-foreground: 0 0% 98%;
     --muted: 348 83% 22%;
     --muted-foreground: 0 0% 63.9%;
     --accent: 30 40% 85%;
     --accent-foreground: 30 20% 25%;
+    --accent-dark: 30 30% 60%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 348 83% 30%;
