@@ -2,7 +2,8 @@
 
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ProductSchema, type ProductFormValues, addProduct } from '@/lib/products';
+import { ProductSchema, type ProductFormValues } from '@/lib/types';
+import { addProduct } from '@/lib/products';
 import type { Category } from '@/lib/types';
 import { useState, useEffect, useTransition } from 'react';
 import { getCategories } from '@/lib/categories';

@@ -2,14 +2,14 @@
 
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, limit } from 'firebase/firestore';
 import { db } from './firebase';
-import type { Product } from './types';
+import type { Product, ProductFormValues } from './types';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 const productsCollection = collection(db, 'products');
 
-// Schema for new products
-export const ProductSchema = z.object({
+// Schema for new products is now defined inside the action
+const ProductSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),
   slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
   description: z.string().min(20, 'Description must be at least 20 characters'),
@@ -23,7 +23,6 @@ export const ProductSchema = z.object({
   isFeatured: z.boolean(),
 });
 
-export type ProductFormValues = z.infer<typeof ProductSchema>;
 
 // Function to add a new product
 export async function addProduct(productData: ProductFormValues): Promise<{ success: boolean; error?: string }> {
@@ -65,5 +64,3 @@ export async function getProducts(): Promise<Product[]> {
   const snapshot = await getDocs(productsCollection);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
 }
-
-// Additional functions for update and delete can be added here
