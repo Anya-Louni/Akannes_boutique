@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, ShoppingCart, User, X, Heart, Search } from 'lucide-react';
+import { Menu, ShoppingCart, User, X, Heart, Search, Shield } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/icons/Logo';
@@ -12,7 +12,6 @@ const navLinks = [
   { href: '/shop', label: 'Shop' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
-  { href: '/admin/suggest-style', label: 'Style AI' },
 ];
 
 export default function Header() {
@@ -42,6 +41,11 @@ export default function Header() {
             <Button variant="ghost" size="icon" className="hidden md:inline-flex">
               <Search className="h-6 w-6 text-foreground/80" />
             </Button>
+             <Button variant="ghost" size="icon" asChild>
+              <Link href="/admin">
+                <Shield className="h-6 w-6 text-foreground/80" />
+              </Link>
+            </Button>
             <Button variant="ghost" size="icon" className="hidden md:inline-flex">
               <Heart className="h-6 w-6 text-foreground/80" />
             </Button>
@@ -68,7 +72,7 @@ export default function Header() {
         )}
       >
         <nav className="flex flex-col items-center gap-4 px-2 pt-2 pb-4 border-t border-primary/10">
-          {navLinks.map(({ href, label }) => (
+          {[...navLinks, {href: '/admin', label: 'Admin'}].map(({ href, label }) => (
             <Button key={href} variant="ghost" asChild className="w-full">
               <Link href={href} onClick={() => setIsMenuOpen(false)} className="text-lg font-medium text-foreground hover:text-primary">
                 {label}

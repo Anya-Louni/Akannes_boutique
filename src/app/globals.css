@@ -4,17 +4,17 @@
 
 @layer base {
   :root {
-    --background: 26 83% 96%;
+    --background: 351 72% 97%;
     --foreground: 24 9.8% 10%;
-    --card: 26 83% 96%;
+    --card: 351 72% 97%;
     --card-foreground: 24 9.8% 10%;
-    --popover: 26 83% 96%;
+    --popover: 351 72% 97%;
     --popover-foreground: 24 9.8% 10%;
     --primary: 25 58% 45%;
-    --primary-foreground: 26 83% 96%;
-    --secondary: 351 72% 95%;
+    --primary-foreground: 351 72% 97%;
+    --secondary: 25 58% 90%;
     --secondary-foreground: 24 9.8% 10%;
-    --muted: 351 72% 95%;
+    --muted: 25 58% 90%;
     --muted-foreground: 24 5.4% 62.9%;
     --accent: 351 91% 73%;
     --accent-foreground: 24 9.8% 10%;
@@ -29,6 +29,17 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    
+    /* Sidebar variables */
+    --sidebar-background: 29 83% 96%;
+    --sidebar-foreground: 24 9.8% 10%;
+    --sidebar-primary: 25 58% 45%;
+    --sidebar-primary-foreground: 351 72% 97%;
+    --sidebar-accent: 25 58% 90%;
+    --sidebar-accent-foreground: 24 9.8% 10%;
+    --sidebar-border: 25 58% 85%;
+    --sidebar-ring: 25 58% 45%;
+
   }
 
   .dark {
@@ -39,10 +50,10 @@
     --popover: 24 9.8% 10%;
     --popover-foreground: 0 0% 98%;
     --primary: 25 58% 55%;
-    --primary-foreground: 26 83% 96%;
-    --secondary: 351 72% 15%;
+    --primary-foreground: 351 72% 97%;
+    --secondary: 25 58% 20%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 351 72% 15%;
+    --muted: 25 58% 20%;
     --muted-foreground: 0 0% 63.9%;
     --accent: 351 91% 73%;
     --accent-foreground: 24 9.8% 10%;
@@ -56,6 +67,16 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* Sidebar variables */
+    --sidebar-background: 24 9.8% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 25 58% 55%;
+    --sidebar-primary-foreground: 351 72% 97%;
+    --sidebar-accent: 25 58% 20%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 25 58% 25%;
+    --sidebar-ring: 25 58% 55%;
   }
 }
 
@@ -69,8 +90,8 @@
       45deg,
       hsl(var(--background)),
       hsl(var(--background)) 25px,
-      hsla(0, 0%, 100%, 0.4) 25px,
-      hsla(0, 0%, 100%, 0.4) 50px
+      hsla(var(--primary), 0.05) 25px,
+      hsla(var(--primary), 0.05) 50px
     );
   }
 }

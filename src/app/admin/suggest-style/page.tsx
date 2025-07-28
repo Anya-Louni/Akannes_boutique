@@ -58,13 +58,13 @@ export default function SuggestStylePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn">
-      <Card className="max-w-2xl mx-auto bg-white/30 backdrop-blur-sm border-primary/10 shadow-lg">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-2">
-            <Wand2 className="h-10 w-10 text-primary" />
-          </div>
-          <CardTitle className="font-headline text-3xl text-primary">AI Style Tag Wizard</CardTitle>
+    <div className="flex-1 space-y-4 p-8 pt-6">
+      <div className="flex items-center justify-between space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight">AI Style Tag Wizard</h2>
+      </div>
+       <Card className="bg-white/30 backdrop-blur-sm border-primary/10 shadow-lg">
+        <CardHeader>
+          <CardTitle className="font-headline text-2xl text-primary">Suggest Product Tags</CardTitle>
           <CardDescription>
             Let our magical AI suggest style tags for your new product. Just describe it below!
           </CardDescription>
@@ -89,7 +89,7 @@ export default function SuggestStylePage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading} className="w-full rounded-full" size="lg">
+              <Button type="submit" disabled={isLoading} className="rounded-full" size="lg">
                 {isLoading ? (
                   <>
                     <Sparkles className="mr-2 h-4 w-4 animate-spin" />
@@ -97,7 +97,7 @@ export default function SuggestStylePage() {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="mr-2 h-4 w-4" />
+                    <Wand2 className="mr-2 h-4 w-4" />
                     Suggest Styles
                   </>
                 )}
