@@ -223,7 +223,7 @@ export default function NewProductPage() {
                                     <FormField control={form.control} name="colors" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Colors</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Black,White,Pink" defaultValue={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Black,White,Pink" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of colors.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
@@ -231,7 +231,7 @@ export default function NewProductPage() {
                                       <FormField control={form.control} name="styleTags" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Style Tags</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Gothic,Lace,Cute" defaultValue={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Gothic,Lace,Cute" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of style tags.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
