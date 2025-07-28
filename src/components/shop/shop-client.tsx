@@ -11,7 +11,6 @@ import { Switch } from '@/components/ui/switch';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Filter, X, Loader2 } from 'lucide-react';
 import { getCategories } from '@/lib/categories';
-import { Badge } from '@/components/ui/badge';
 
 const sizes = ['S', 'M', 'L', 'XL', 'One Size'];
 
@@ -26,14 +25,7 @@ export default function ShopClient({ products }: ShopClientProps) {
   const [category, setCategory] = useState('all');
   const [priceRange, setPriceRange] = useState([0, 20000]);
   const [size, setSize] = useState('all');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [inStockOnly, setInStockOnly] = useState(true);
-
-  const allTags = useMemo(() => {
-    const tags = new Set<string>();
-    products.forEach(p => p.styleTags?.forEach(tag => tags.add(tag)));
-    return Array.from(tags);
-  }, [products]);
 
   useEffect(() => {
     async function loadCategories() {
@@ -50,12 +42,6 @@ export default function ShopClient({ products }: ShopClientProps) {
     loadCategories();
   }, []);
 
-  const handleTagClick = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-    );
-  };
-
   const applyFilters = () => {
     let tempProducts = [...products];
 
@@ -68,11 +54,7 @@ export default function ShopClient({ products }: ShopClientProps) {
     if (size !== 'all') {
       tempProducts = tempProducts.filter(p => p.sizes.includes(size));
     }
-    if (selectedTags.length > 0) {
-      tempProducts = tempProducts.filter(p => 
-        selectedTags.every(tag => p.styleTags?.includes(tag))
-      );
-    }
+    
     tempProducts = tempProducts.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
 
     setFilteredProducts(tempProducts);
@@ -83,13 +65,12 @@ export default function ShopClient({ products }: ShopClientProps) {
     setPriceRange([0, 20000]);
     setSize('all');
     setInStockOnly(true);
-    setSelectedTags([]);
     const defaultFiltered = products.filter(p => p.inStock);
     setFilteredProducts(defaultFiltered);
   };
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useMemo(applyFilters, [category, priceRange, size, selectedTags, inStockOnly, products]);
+  useMemo(applyFilters, [category, priceRange, size, inStockOnly, products]);
 
   const FiltersComponent = () => (
     <div className="space-y-6">
@@ -108,21 +89,6 @@ export default function ShopClient({ products }: ShopClientProps) {
               </SelectContent>
             </Select>
           )}
-        </div>
-        <div>
-          <h3 className="font-headline text-xl mb-4">Style Tags</h3>
-          <div className="flex flex-wrap gap-2">
-            {allTags.map(tag => (
-              <Badge
-                key={tag}
-                variant={selectedTags.includes(tag) ? 'default' : 'secondary'}
-                onClick={() => handleTagClick(tag)}
-                className="cursor-pointer"
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
         </div>
         <div>
           <h3 className="font-headline text-xl mb-4">Price Range</h3>

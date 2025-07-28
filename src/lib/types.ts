@@ -11,7 +11,6 @@ export type Product = {
   colors: string[];
   sizes: string[];
   inStock: boolean;
-  styleTags: string[];
   isFeatured?: boolean;
 };
 
@@ -31,8 +30,7 @@ export const ProductSchema = z.object({
   category: z.string().min(1, 'Please select a category'),
   sizes: z.array(z.string()).min(1, 'Please select at least one size'),
   colors: z.array(z.string()).min(1, 'Please add at least one color'),
-  styleTags: z.array(z.string()).min(1, 'Please add at least one style tag'),
-  images: z.array(z.string()).min(1, 'Please add at least one image URL'),
+  images: z.array(z.string().min(1, 'Image URL cannot be empty.')).min(1, 'Please add at least one image URL'),
   inStock: z.boolean(),
   isFeatured: z.boolean(),
 });

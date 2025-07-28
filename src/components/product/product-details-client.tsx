@@ -95,18 +95,6 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
           </Button>
         </div>
 
-        {/* Style Tags */}
-        {product.styleTags && product.styleTags.length > 0 && (
-            <div className="mt-8">
-                <h3 className="text-lg font-headline mb-2">Style Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                    {product.styleTags.map(tag => (
-                        <Badge key={tag} variant="outline" className="bg-background/50">{tag}</Badge>
-                    ))}
-                </div>
-            </div>
-        )}
-
         <div className="mt-8 p-4 rounded-xl bg-secondary/50 border border-primary/10 space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Truck className="h-5 w-5 text-primary"/>

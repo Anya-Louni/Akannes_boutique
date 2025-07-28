@@ -18,8 +18,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { Loader2, PlusCircle, Trash2, Wand2 } from 'lucide-react';
-import { performStyleSuggestion } from '@/app/admin/suggest-style/actions';
+import { Loader2, PlusCircle, Trash2 } from 'lucide-react';
 
 
 const SIZES = ['S', 'M', 'L', 'XL', 'One Size'];
@@ -27,7 +26,6 @@ const SIZES = ['S', 'M', 'L', 'XL', 'One Size'];
 export default function NewProductPage() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [isLoading, startTransition] = useTransition();
-    const [isSuggesting, setIsSuggesting] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
 
@@ -41,7 +39,6 @@ export default function NewProductPage() {
             category: '',
             sizes: [],
             colors: [],
-            styleTags: [],
             images: [''],
             inStock: true,
             isFeatured: false,
@@ -60,41 +57,6 @@ export default function NewProductPage() {
         }
         loadCategories();
     }, []);
-
-    const handleSuggestTags = async () => {
-        const description = form.getValues('description');
-        if (!description || description.length < 20) {
-            toast({
-                variant: 'destructive',
-                title: 'Description too short',
-                description: 'Please enter at least 20 characters in the description to get suggestions.',
-            });
-            return;
-        }
-
-        setIsSuggesting(true);
-        try {
-            const result = await performStyleSuggestion({ productDescription: description });
-            if (result && result.styleTags) {
-                const currentTags = form.getValues('styleTags') || [];
-                // Using a Set to automatically handle duplicates
-                const newTags = Array.from(new Set([...currentTags, ...result.styleTags]));
-                form.setValue('styleTags', newTags, { shouldValidate: true });
-                toast({
-                    title: 'Magic ✨',
-                    description: 'Style tags suggested and added!',
-                });
-            }
-        } catch (error) {
-            toast({
-                variant: 'destructive',
-                title: 'AI Error',
-                description: 'Could not fetch style suggestions.',
-            });
-        } finally {
-            setIsSuggesting(false);
-        }
-    };
 
     const onSubmit = async (data: ProductFormValues) => {
         const payload = {
@@ -276,31 +238,12 @@ export default function NewProductPage() {
                                     <FormField control={form.control} name="colors" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Colors</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Black,White,Pink" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Black,White,Pink" defaultValue={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of colors.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                      <FormField control={form.control} name="styleTags" render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Style Tags</FormLabel>
-                                            <div className="flex items-center gap-2">
-                                                <FormControl>
-                                                    <Input 
-                                                        placeholder="e.g., Gothic,Lace,Cute" 
-                                                        value={Array.isArray(field.value) ? field.value.join(',') : ''} 
-                                                        onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} 
-                                                    />
-                                                </FormControl>
-                                                <Button type="button" variant="outline" size="icon" onClick={handleSuggestTags} disabled={isSuggesting}>
-                                                    {isSuggesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
-                                                </Button>
-                                            </div>
-                                            <FormDescription>Comma-separated list of style tags.</FormDescription>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )} />
-
+                                    
                                     <FormField control={form.control} name="inStock" render={({ field }) => (
                                         <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                                             <div className="space-y-0.5"><FormLabel>In Stock</FormLabel></div>
