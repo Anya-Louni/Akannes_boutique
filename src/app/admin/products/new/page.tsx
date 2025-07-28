@@ -38,7 +38,7 @@ export default function NewProductPage() {
             sizes: [],
             colors: [],
             styleTags: [],
-            images: [],
+            images: [''],
             inStock: true,
             isFeatured: false,
         },
@@ -201,9 +201,10 @@ export default function NewProductPage() {
                                                                 <Checkbox
                                                                     checked={field.value?.includes(item)}
                                                                     onCheckedChange={(checked) => {
+                                                                        const currentValues = field.value || [];
                                                                         return checked
-                                                                            ? field.onChange([...field.value, item])
-                                                                            : field.onChange(field.value?.filter((value) => value !== item))
+                                                                            ? field.onChange([...currentValues, item])
+                                                                            : field.onChange(currentValues?.filter((value) => value !== item))
                                                                     }}
                                                                 />
                                                             </FormControl>
@@ -221,7 +222,7 @@ export default function NewProductPage() {
                                     <FormField control={form.control} name="colors" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Colors</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Black,White,Pink" onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Black,White,Pink" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of colors.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
@@ -229,7 +230,7 @@ export default function NewProductPage() {
                                       <FormField control={form.control} name="styleTags" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Style Tags</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Gothic,Lace,Cute" onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Gothic,Lace,Cute" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of style tags.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
