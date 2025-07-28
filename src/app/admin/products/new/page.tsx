@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm, useFieldArray } from 'react-hook-form';
@@ -156,7 +157,7 @@ export default function NewProductPage() {
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Organization</CardTitle>
-                                </Header>
+                                </CardHeader>
                                 <CardContent className="space-y-4">
                                      <FormField control={form.control} name="price" render={({ field }) => (
                                         <FormItem>
