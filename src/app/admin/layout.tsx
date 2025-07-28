@@ -56,9 +56,11 @@ export default function AdminLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#">
-                <ShoppingBag />
-                <span>Products</span>
+              <SidebarMenuButton href="/admin/products" asChild>
+                <Link href="/admin/products">
+                  <ShoppingBag />
+                  <span>Products</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
