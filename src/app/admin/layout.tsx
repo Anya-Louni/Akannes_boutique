@@ -82,9 +82,11 @@ export default function AdminLayout({
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <SidebarMenuButton href="#">
-                        <Settings />
-                        <span>Settings</span>
+                    <SidebarMenuButton href="/admin/settings" asChild>
+                       <Link href="/admin/settings">
+                          <Settings />
+                          <span>Settings</span>
+                       </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
