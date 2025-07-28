@@ -6,17 +6,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import MetaBalls from './meta-balls';
 
 export function Hero() {
   return (
     <section className="relative w-full min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none bubbles">
-        {/* Array of 15 elements to create 15 bubbles */}
-        {Array.from({ length: 15 }).map((_, i) => (
-          <div key={i} className="bubble" />
-        ))}
-      </div>
-
+      <MetaBalls />
       <div className="relative z-10 text-center p-4 animate-fadeIn">
         <h1 className={cn(
           "font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-shadow-magic",
