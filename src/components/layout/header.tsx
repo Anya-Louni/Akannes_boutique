@@ -1,11 +1,13 @@
+
 'use client';
 
 import Link from 'next/link';
-import { Menu, ShoppingCart, User, X, Heart, Search } from 'lucide-react';
+import { Menu, User, X, Heart, Search } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/icons/Logo';
 import { cn } from '@/lib/utils';
+import { CartWidget } from '@/components/cart/cart-widget';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -47,9 +49,7 @@ export default function Header() {
             <Button variant="ghost" size="icon">
               <User className="h-6 w-6 text-foreground/80" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <ShoppingCart className="h-6 w-6 text-foreground/80" />
-            </Button>
+            <CartWidget />
             <div className="md:hidden">
               <Button onClick={() => setIsMenuOpen(!isMenuOpen)} variant="ghost" size="icon">
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

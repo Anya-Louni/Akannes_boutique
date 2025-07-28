@@ -1,3 +1,6 @@
+
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/lib/types';
@@ -5,12 +8,25 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heart, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/context/cart-context';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    addItem(product, 1);
+     toast({
+      title: "Added to cart! ✨",
+      description: `${product.name} is now in your cart.`,
+    });
+  };
+  
   return (
     <Card className="h-full flex flex-col group overflow-hidden rounded-2xl shadow-lg hover:shadow-primary/20 transition-all duration-300 border-primary/10 bg-white/30 backdrop-blur-sm">
       <CardHeader className="p-0 relative">
@@ -43,7 +59,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       </CardContent>
       <CardFooter className="p-4 flex justify-between items-center">
         <p className="text-xl font-bold text-primary">{product.price.toLocaleString()} DZD</p>
-        <Button disabled={!product.inStock} className="rounded-full">
+        <Button disabled={!product.inStock} className="rounded-full" onClick={handleAddToCart}>
             <ShoppingCart className="mr-2 h-4 w-4"/>
             Add to Cart
         </Button>

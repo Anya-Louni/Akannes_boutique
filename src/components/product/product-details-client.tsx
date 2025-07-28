@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -11,6 +12,9 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Heart, Ruler, ShoppingCart, Truck } from 'lucide-react';
 import SizeChartModal from './size-chart-modal';
+import { useCart } from '@/context/cart-context';
+import { useToast } from '@/hooks/use-toast';
+
 
 interface ProductDetailsClientProps {
   product: Product;
@@ -20,6 +24,17 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    // We pass the full product object and the selected size and quantity
+    addItem(product, quantity, selectedSize);
+    toast({
+      title: "Added to cart! ✨",
+      description: `${quantity} x ${product.name} (${selectedSize}) has been added.`,
+    });
+  };
 
   return (
     <div className="grid md:grid-cols-2 gap-8 lg:gap-16 animate-fadeIn">
@@ -86,7 +101,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
             min="1"
             className="w-20 text-center"
           />
-          <Button size="lg" className="flex-grow rounded-full" disabled={!product.inStock}>
+          <Button size="lg" className="flex-grow rounded-full" disabled={!product.inStock} onClick={handleAddToCart}>
             <ShoppingCart className="mr-2 h-5 w-5" />
             {product.inStock ? 'Add to Cart' : 'Out of Stock'}
           </Button>
