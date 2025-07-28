@@ -5,7 +5,7 @@ export type Product = {
   description: string;
   price: number;
   images: string[];
-  category: 'Dresses' | 'Tops' | 'Skirts' | 'Accessories';
+  category: 'Dresses' | 'Tops' | 'Skirts' | 'Accessories' | string;
   colors: string[];
   sizes: string[];
   inStock: boolean;

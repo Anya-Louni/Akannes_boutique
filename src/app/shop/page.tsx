@@ -1,10 +1,18 @@
-import { products } from '@/lib/products';
 import ShopClient from '@/components/shop/shop-client';
 import { Sparkles } from 'lucide-react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import type { Product } from '@/lib/types';
 
-export default function ShopPage() {
-  // In a real app, you'd fetch this data.
-  const allProducts = products;
+async function getProducts() {
+    const productsCol = collection(db, 'products');
+    const productSnapshot = await getDocs(productsCol);
+    const productList = productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
+    return productList;
+}
+
+export default async function ShopPage() {
+  const allProducts = await getProducts();
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">

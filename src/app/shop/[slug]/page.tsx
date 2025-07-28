@@ -1,8 +1,10 @@
-import { products } from '@/lib/products';
 import { notFound } from 'next/navigation';
 import ProductDetailsClient from '@/components/product/product-details-client';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import Link from 'next/link';
+import { collection, getDocs, query, where, limit } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import type { Product } from '@/lib/types';
 
 interface ProductPageProps {
   params: {
@@ -10,15 +12,28 @@ interface ProductPageProps {
   };
 }
 
-// This function can be used for static generation
-export async function generateStaticParams() {
-  return products.map(product => ({
-    slug: product.slug,
-  }));
+async function getProductBySlug(slug: string): Promise<Product | null> {
+    const productsRef = collection(db, 'products');
+    const q = query(productsRef, where('slug', '==', slug), limit(1));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+        return null;
+    }
+    const doc = querySnapshot.docs[0];
+    return { id: doc.id, ...doc.data() } as Product;
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find(p => p.slug === params.slug);
+export async function generateStaticParams() {
+    const productsCol = collection(db, 'products');
+    const productSnapshot = await getDocs(productsCol);
+    return productSnapshot.docs.map(doc => ({
+        slug: doc.data().slug,
+    }));
+}
+
+export default async function ProductPage({ params }: ProductPageProps) {
+  const product = await getProductBySlug(params.slug);
 
   if (!product) {
     notFound();

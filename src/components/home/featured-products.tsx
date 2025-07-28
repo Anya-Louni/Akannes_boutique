@@ -1,9 +1,19 @@
-import { products } from '@/lib/products';
 import ProductCard from '@/components/product/product-card';
 import { Sparkles } from 'lucide-react';
+import { collection, query, where, getDocs, limit } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import type { Product } from '@/lib/types';
 
-export function FeaturedProducts() {
-  const featured = products.filter(p => p.isFeatured);
+async function getFeaturedProducts() {
+    const productsRef = collection(db, 'products');
+    const q = query(productsRef, where('isFeatured', '==', true), limit(4));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
+}
+
+
+export async function FeaturedProducts() {
+  const featured = await getFeaturedProducts();
 
   return (
     <section className="py-16 sm:py-24 bg-background/80">
