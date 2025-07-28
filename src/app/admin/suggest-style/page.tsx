@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -9,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Wand2 } from 'lucide-react';
+import { Sparkles, Wand2, Copy } from 'lucide-react';
 import { performStyleSuggestion } from './actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -30,6 +31,14 @@ export default function SuggestStylePage() {
       productDescription: '',
     },
   });
+
+  const handleCopy = (tag: string) => {
+    navigator.clipboard.writeText(tag);
+    toast({
+      title: 'Copied!',
+      description: `"${tag}" has been copied to your clipboard.`,
+    });
+  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
@@ -62,9 +71,9 @@ export default function SuggestStylePage() {
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">AI Style Tag Wizard</h2>
       </div>
-       <Card className="bg-white/30 backdrop-blur-sm border-primary/10 shadow-lg">
+       <Card>
         <CardHeader>
-          <CardTitle className="font-headline text-2xl text-primary">Suggest Product Tags</CardTitle>
+          <CardTitle>Suggest Product Tags</CardTitle>
           <CardDescription>
             Let our magical AI suggest style tags for your new product. Just describe it below!
           </CardDescription>
@@ -77,7 +86,7 @@ export default function SuggestStylePage() {
                 name="productDescription"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-headline text-lg">Product Description</FormLabel>
+                    <FormLabel>Product Description</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="e.g., A beautiful black velvet dress with white lace trim, a peter pan collar, and a large bow on the back..."
@@ -89,7 +98,7 @@ export default function SuggestStylePage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading} className="rounded-full" size="lg">
+              <Button type="submit" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Sparkles className="mr-2 h-4 w-4 animate-spin" />
@@ -107,11 +116,17 @@ export default function SuggestStylePage() {
 
           {suggestedTags.length > 0 && (
             <div className="mt-8">
-              <h3 className="font-headline text-xl text-center mb-4">Suggested Tags</h3>
-              <div className="flex flex-wrap gap-2 justify-center p-4 rounded-lg bg-secondary/50">
+              <h3 className="text-lg font-semibold text-center mb-4">Suggested Tags</h3>
+              <div className="flex flex-wrap gap-2 justify-center p-4 rounded-lg bg-secondary/50 border">
                 {suggestedTags.map((tag) => (
-                  <Badge key={tag} variant="default" className="text-base px-3 py-1">
+                  <Badge 
+                    key={tag} 
+                    variant="default" 
+                    className="text-base px-3 py-1 cursor-pointer hover:bg-primary/80 transition-colors group"
+                    onClick={() => handleCopy(tag)}
+                  >
                     {tag}
+                    <Copy className="ml-2 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Badge>
                 ))}
               </div>
