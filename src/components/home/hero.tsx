@@ -5,13 +5,41 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import React from 'react';
-import MetaBalls from './meta-balls';
+import React, { useState } from 'react';
+
+const initialBubbles = Array.from({ length: 15 }, (_, i) => ({ id: i, popped: false }));
 
 export function Hero() {
+  const [bubbles, setBubbles] = useState(initialBubbles);
+
+  const handlePop = (id: number) => {
+    setBubbles(prevBubbles =>
+      prevBubbles.map(bubble =>
+        bubble.id === id ? { ...bubble, popped: true } : bubble
+      )
+    );
+    // Optional: Reset the bubble after the animation so it can reappear
+    setTimeout(() => {
+       setBubbles(prevBubbles =>
+          prevBubbles.map(bubble =>
+            bubble.id === id ? { ...bubble, popped: false } : bubble
+          )
+       );
+    }, 1000);
+  };
+
+
   return (
     <section className="relative w-full min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden">
-      <MetaBalls />
+        <div className="bubbles">
+            {bubbles.map(bubble => (
+            <div
+                key={bubble.id}
+                className={cn('bubble', `bubble-${bubble.id + 1}`, { 'popped': bubble.popped })}
+                onClick={() => handlePop(bubble.id)}
+            ></div>
+            ))}
+        </div>
       <div className="relative z-10 text-center p-4 animate-fadeIn">
         <h1 className={cn(
           "font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-shadow-magic",
