@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function Hero() {
@@ -20,13 +20,9 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 text-center p-4 animate-fadeIn">
-        <div className="inline-flex items-center gap-2 bg-accent/80 backdrop-blur-sm text-accent-foreground px-4 py-2 rounded-full border border-accent-foreground/20 mb-4 shadow-lg">
-          <Sparkles className="h-5 w-5" />
-          <span className="font-bold">New Collection Arrived!</span>
-        </div>
         <h1 className={cn(
           "font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-shadow-magic",
-          "text-primary"
+          "text-primary-foreground"
         )}>
           Dress Your Dreams
         </h1>
@@ -34,12 +30,12 @@ export function Hero() {
           Discover enchanting fashion inspired by the magical world of Japanese aesthetics. Live your fairytale.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <Button asChild size="lg" className="rounded-full shadow-lg hover:scale-105 transition-transform">
+          <Button asChild size="lg" className="rounded-full">
             <Link href="/shop">
               Shop Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="rounded-full shadow-lg bg-background/50 backdrop-blur-sm hover:scale-105 transition-transform">
+          <Button asChild size="lg" variant="outline" className="rounded-full">
             <Link href="/about">
               Our Story
             </Link>
