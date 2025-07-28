@@ -24,14 +24,6 @@ export default function ProductCard({ product }: ProductCardProps) {
               data-ai-hint={`${product.category} clothing`}
             />
              <div className="absolute bottom-0 w-full h-1/4 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-             <div 
-                className="absolute bottom-0 w-full h-8"
-                style={{
-                    background: 'url(/chocolate-texture.png)',
-                    backgroundSize: 'cover',
-                    opacity: 0.5
-                }}
-             />
           </div>
         </Link>
         {!product.inStock && (
