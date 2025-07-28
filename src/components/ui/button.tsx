@@ -13,8 +13,8 @@ const buttonVariants = cva(
         destructive: "bg-destructive text-destructive-foreground rounded-xl shadow-[0_5px_0_hsl(var(--destructive)/0.8)] active:translate-y-1 active:shadow-[0_2px_0_hsl(var(--destructive)/0.8)]",
         outline: "bg-accent/80 text-accent-foreground border-accent-dark border-2 rounded-xl shadow-[0_5px_0_hsl(var(--accent-dark))] hover:bg-accent/90 active:translate-y-1 active:shadow-[0_2px_0_hsl(var(--accent-dark))]",
         secondary: "bg-secondary text-secondary-foreground rounded-xl shadow-[0_4px_0_hsl(var(--muted))] active:translate-y-0.5 active:shadow-[0_2px_0_hsl(var(--muted))]",
-        ghost: "hover:bg-secondary hover:text-secondary-foreground rounded-md hover:animate-button-wobble",
-        link: "text-primary underline-offset-4 hover:underline rounded-md",
+        ghost: "hover:bg-secondary hover:text-secondary-foreground rounded-xl hover:animate-button-wobble",
+        link: "text-primary underline-offset-4 hover:underline rounded-xl",
       },
       size: {
         default: "h-11 px-6 py-3",
