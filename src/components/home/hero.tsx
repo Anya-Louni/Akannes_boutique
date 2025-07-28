@@ -56,11 +56,6 @@ export function Hero() {
               Shop Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="rounded-full">
-            <Link href="/about">
-              Our Story
-            </Link>
-          </Button>
         </div>
       </div>
     </section>

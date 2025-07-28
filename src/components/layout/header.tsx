@@ -12,7 +12,6 @@ import { CartWidget } from '@/components/cart/cart-widget';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/shop', label: 'Shop' },
-  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 

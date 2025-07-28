@@ -41,7 +41,6 @@ export default function Footer() {
             <div>
               <h3 className="font-headline text-lg font-semibold text-foreground">About Us</h3>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">Our Story</Link></li>
                 <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
                 <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">FAQs</Link></li>
                 <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
