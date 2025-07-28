@@ -3,6 +3,8 @@ import { OrderTable } from '@/components/admin/orders/order-table';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Package } from 'lucide-react';
 
+export const dynamic = 'force-dynamic'
+
 export default async function OrdersPage() {
     const orders = await getOrders();
 
