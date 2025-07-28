@@ -4,6 +4,7 @@ import { Testimonials } from '@/components/home/testimonials';
 import { InstagramFeed } from '@/components/home/instagram-feed';
 import { PromoBanner } from '@/components/home/promo-banner';
 import { LaceDivider } from '@/components/ui/lace-divider';
+import { StyleQuiz } from '@/components/home/style-quiz';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <LaceDivider />
       <FeaturedProducts />
+      <StyleQuiz />
       <Testimonials />
       <PromoBanner />
       <InstagramFeed />
