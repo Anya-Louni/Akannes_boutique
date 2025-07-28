@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import type { Product } from '@/lib/types';
+import { useState, useMemo, useEffect } from 'react';
+import type { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/product/product-card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -9,9 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Filter, X } from 'lucide-react';
+import { Filter, X, Loader2 } from 'lucide-react';
+import { getCategories } from '@/lib/categories';
 
-const categories = ['Dresses', 'Tops', 'Skirts', 'Accessories'];
 const sizes = ['S', 'M', 'L', 'XL', 'One Size'];
 
 interface ShopClientProps {
@@ -20,10 +20,28 @@ interface ShopClientProps {
 
 export default function ShopClient({ products }: ShopClientProps) {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isFetchingCategories, setIsFetchingCategories] = useState(true);
   const [category, setCategory] = useState('all');
   const [priceRange, setPriceRange] = useState([0, 20000]);
   const [size, setSize] = useState('all');
   const [inStockOnly, setInStockOnly] = useState(true);
+
+  useEffect(() => {
+    async function loadCategories() {
+      setIsFetchingCategories(true);
+      try {
+        const fetchedCategories = await getCategories();
+        setCategories(fetchedCategories);
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+        // Optionally, show a toast message to the user
+      } finally {
+        setIsFetchingCategories(false);
+      }
+    }
+    loadCategories();
+  }, []);
 
   const applyFilters = () => {
     let tempProducts = [...products];
@@ -47,7 +65,9 @@ export default function ShopClient({ products }: ShopClientProps) {
     setPriceRange([0, 20000]);
     setSize('all');
     setInStockOnly(true);
-    setFilteredProducts(products.filter(p => p.inStock));
+    // Recalculate filtered products with default filters
+    const defaultFiltered = products.filter(p => p.inStock);
+    setFilteredProducts(defaultFiltered);
   };
   
   useMemo(applyFilters, [category, priceRange, size, inStockOnly, products]);
@@ -56,13 +76,19 @@ export default function ShopClient({ products }: ShopClientProps) {
     <div className="space-y-6">
         <div>
           <h3 className="font-headline text-xl mb-4">Category</h3>
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Styles</SelectItem>
-              {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-            </SelectContent>
-          </Select>
+          {isFetchingCategories ? (
+            <div className="flex items-center justify-center h-10">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          ) : (
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Styles</SelectItem>
+                {categories.map(c => <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          )}
         </div>
         <div>
           <h3 className="font-headline text-xl mb-4">Price Range</h3>

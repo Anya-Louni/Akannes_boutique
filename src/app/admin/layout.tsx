@@ -12,7 +12,7 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import Logo from '@/components/icons/Logo';
-import { LayoutDashboard, Wand2, ShoppingBag, Users, Star, Settings, LogOut, Home } from 'lucide-react';
+import { LayoutDashboard, Wand2, ShoppingBag, Users, Star, Settings, LogOut, Home, Tag } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminLayout({
@@ -44,6 +44,14 @@ export default function AdminLayout({
                 <Link href="/admin/suggest-style">
                     <Wand2 />
                     <span>Style AI</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton href="/admin/categories" asChild>
+                <Link href="/admin/categories">
+                    <Tag />
+                    <span>Categories</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

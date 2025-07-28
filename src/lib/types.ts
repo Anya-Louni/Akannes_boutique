@@ -5,10 +5,16 @@ export type Product = {
   description: string;
   price: number;
   images: string[];
-  category: 'Dresses' | 'Tops' | 'Skirts' | 'Accessories' | string;
+  category: string;
   colors: string[];
   sizes: string[];
   inStock: boolean;
   styleTags: string[];
   isFeatured?: boolean;
 };
+
+export type Category = {
+    id: string;
+    name: string;
+    createdAt: Date;
+}
