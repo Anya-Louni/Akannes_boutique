@@ -11,7 +11,7 @@ import { Switch } from '@/components/ui/switch';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Filter, X } from 'lucide-react';
 
-const categories = ['Gothic Lolita', 'Sweet Lolita', 'Gyaru', 'Shoujo'];
+const categories = ['Dresses', 'Tops', 'Skirts', 'Accessories'];
 const sizes = ['S', 'M', 'L', 'XL', 'One Size'];
 
 interface ShopClientProps {
@@ -99,7 +99,7 @@ export default function ShopClient({ products }: ShopClientProps) {
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       <aside className="hidden lg:block lg:w-1/4 xl:w-1/5">
-        <div className="sticky top-24 p-6 rounded-2xl bg-white/30 backdrop-blur-sm border border-primary/10 shadow-lg">
+        <div className="sticky top-24 p-6 rounded-2xl bg-white/30 backdrop-blur-sm border border-primary/10 shadow-lg animate-slideUp">
           <h2 className="font-headline text-2xl mb-4">Filters</h2>
           <FiltersComponent />
         </div>
@@ -125,12 +125,18 @@ export default function ShopClient({ products }: ShopClientProps) {
         
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
+            {filteredProducts.map((product, index) => (
+              <div
+                key={product.id}
+                className="animate-popIn"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-20">
+          <div className="text-center py-20 animate-fadeIn">
             <p className="font-headline text-2xl text-primary">No magical items found!</p>
             <p className="text-muted-foreground mt-2">Try adjusting your filters to find your dream outfit.</p>
             <Button onClick={resetFilters} className="mt-4">Clear Filters</Button>

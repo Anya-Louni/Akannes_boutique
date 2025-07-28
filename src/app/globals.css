@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 339 67% 94%;
-    --foreground: 240 10% 3.9%;
-    --card: 339 67% 94%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 339 67% 94%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 335 83% 69%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 338 60% 90%;
-    --secondary-foreground: 240 10% 3.9%;
-    --muted: 338 60% 90%;
-    --muted-foreground: 240 5% 65%;
-    --accent: 43 100% 73%;
-    --accent-foreground: 240 10% 3.9%;
+    --background: 26 83% 96%;
+    --foreground: 24 9.8% 10%;
+    --card: 26 83% 96%;
+    --card-foreground: 24 9.8% 10%;
+    --popover: 26 83% 96%;
+    --popover-foreground: 24 9.8% 10%;
+    --primary: 25 58% 45%;
+    --primary-foreground: 26 83% 96%;
+    --secondary: 351 72% 95%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 351 72% 95%;
+    --muted-foreground: 24 5.4% 62.9%;
+    --accent: 351 91% 73%;
+    --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 335 60% 85%;
-    --input: 335 60% 85%;
-    --ring: 335 83% 69%;
+    --border: 25 58% 85%;
+    --input: 25 58% 85%;
+    --ring: 25 58% 45%;
     --radius: 0.8rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -32,25 +32,25 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 24 9.8% 10%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 24 9.8% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: 24 9.8% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 335 83% 69%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 3.7% 15.9%;
+    --primary: 25 58% 55%;
+    --primary-foreground: 26 83% 96%;
+    --secondary: 351 72% 15%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
+    --muted: 351 72% 15%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 43 100% 73%;
-    --accent-foreground: 240 10% 3.9%;
+    --accent: 351 91% 73%;
+    --accent-foreground: 24 9.8% 10%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 335 83% 69%;
+    --border: 25 58% 25%;
+    --input: 25 58% 25%;
+    --ring: 25 58% 55%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -76,9 +76,9 @@
 }
 
 @layer utilities {
-  .frilly-border {
-    border: 10px solid;
-    border-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 C10 0 10 30 30 30 C50 30 50 0 30 0 Z' fill='%23F070A1'/%3E%3C/svg%3E") 20 stretch;
+  .lace-border {
+    border: 15px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='30' viewBox='0 0 60 30'%3E%3Cpath d='M0,15 C10,0 20,0 30,15 C40,30 50,30 60,15' fill='none' stroke='hsl(var(--primary))' stroke-width='2'/%3E%3C/svg%3E") 30 stretch;
     border-image-outset: 5px;
   }
   
@@ -100,6 +100,40 @@
 
 .animate-fadeIn {
   animation: fadeIn 0.7s ease-in-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-popIn {
+    animation: popIn 0.5s ease-out forwards;
 }
 
 .shimmer-bg {

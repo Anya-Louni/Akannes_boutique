@@ -5,7 +5,7 @@ export type Product = {
   description: string;
   price: number;
   images: string[];
-  category: 'Gothic Lolita' | 'Sweet Lolita' | 'Gyaru' | 'Shoujo';
+  category: 'Dresses' | 'Tops' | 'Skirts' | 'Accessories';
   colors: string[];
   sizes: string[];
   inStock: boolean;

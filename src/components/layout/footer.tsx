@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="lg:col-span-1 space-y-4">
             <Logo />
             <p className="text-sm text-muted-foreground">
-              Your magical wardrobe for Japanese-inspired fashion.
+              Your magical wardrobe for sweet and chic fashion.
             </p>
             <div className="flex gap-4">
               <Link href="https://instagram.com/akkanesboutique" target="_blank">
@@ -31,10 +31,10 @@ export default function Footer() {
              <div>
               <h3 className="font-headline text-lg font-semibold text-foreground">Shop</h3>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><Link href="/shop?category=gothic-lolita" className="text-muted-foreground hover:text-primary transition-colors">Gothic Lolita</Link></li>
-                <li><Link href="/shop?category=sweet-lolita" className="text-muted-foreground hover:text-primary transition-colors">Sweet Lolita</Link></li>
-                <li><Link href="/shop?category=gyaru" className="text-muted-foreground hover:text-primary transition-colors">Gyaru</Link></li>
-                <li><Link href="/shop?category=shoujo" className="text-muted-foreground hover:text-primary transition-colors">Shoujo</Link></li>
+                <li><Link href="/shop?category=dresses" className="text-muted-foreground hover:text-primary transition-colors">Dresses</Link></li>
+                <li><Link href="/shop?category=tops" className="text-muted-foreground hover:text-primary transition-colors">Tops</Link></li>
+                <li><Link href="/shop?category=skirts" className="text-muted-foreground hover:text-primary transition-colors">Skirts</Link></li>
+                <li><Link href="/shop?category=accessories" className="text-muted-foreground hover:text-primary transition-colors">Accessories</Link></li>
               </ul>
             </div>
 
@@ -60,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-primary/10 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Akkane's Magical Boutique. Made with <Heart className="inline h-4 w-4 text-primary" /> in Algeria.</p>
+          <p>&copy; {new Date().getFullYear()} Choco-Chic Boutique. Made with <Heart className="inline h-4 w-4 text-primary" /> in Algeria.</p>
         </div>
       </div>
     </footer>
