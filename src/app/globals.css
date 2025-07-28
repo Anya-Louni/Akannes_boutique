@@ -189,8 +189,8 @@
 
 @keyframes button-wobble {
   0%, 100% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(-1deg) scale(1.02); }
-  75% { transform: rotate(1deg) scale(1.02); }
+  25% { transform: rotate(-2deg) scale(1.05); }
+  75% { transform: rotate(2deg) scale(1.05); }
 }
 
 .animate-button-wobble {
@@ -261,3 +261,5 @@
     opacity: 0;
   }
 }
+
+    

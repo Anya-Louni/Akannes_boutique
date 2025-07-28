@@ -31,7 +31,7 @@ export default function Header() {
           <nav className="hidden md:flex md:items-center md:gap-1 lg:gap-2">
             {navLinks.map(({ href, label }) => (
               <Button key={href} variant="ghost" asChild>
-                <Link href={href} className="text-base font-medium text-foreground/80 hover:text-primary transition-colors duration-300">
+                <Link href={href} className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors duration-300">
                   {label}
                 </Link>
               </Button>
@@ -78,3 +78,5 @@ export default function Header() {
     </header>
   );
 }
+
+    
