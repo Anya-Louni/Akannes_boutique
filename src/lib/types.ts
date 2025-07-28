@@ -20,6 +20,23 @@ export type Category = {
     createdAt: Date;
 }
 
+export type OrderItem = {
+    productId: string;
+    name: string;
+    quantity: number;
+    price: number;
+}
+
+export type Order = {
+    id: string;
+    customerName: string;
+    customerEmail: string;
+    items: OrderItem[];
+    total: number;
+    status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
+    createdAt: Date;
+}
+
 
 // We still need a schema for the form on the client side.
 export const ProductSchema = z.object({
@@ -30,7 +47,7 @@ export const ProductSchema = z.object({
   category: z.string().min(1, 'Please select a category'),
   sizes: z.array(z.string()).min(1, 'Please select at least one size'),
   colors: z.array(z.string()).min(1, 'Please add at least one color'),
-  images: z.array(z.string().min(1, 'Image URL cannot be empty.')).min(1, 'Please add at least one image URL'),
+  images: z.array(z.string()).min(1, 'Please add at least one image URL').filter(url => url.length > 0, { message: 'Image URL cannot be empty.' }),
   inStock: z.boolean(),
   isFeatured: z.boolean(),
 });

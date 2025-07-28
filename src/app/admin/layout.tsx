@@ -12,7 +12,7 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import Logo from '@/components/icons/Logo';
-import { LayoutDashboard, ShoppingBag, Users, Star, Settings, LogOut, Home, Tag } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, Users, Star, Settings, LogOut, Home, Tag, Package } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminLayout({
@@ -56,9 +56,11 @@ export default function AdminLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#">
-                <Users />
-                <span>Customers</span>
+              <SidebarMenuButton href="/admin/orders" asChild>
+                 <Link href="/admin/orders">
+                    <Package />
+                    <span>Orders</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
