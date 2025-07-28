@@ -64,9 +64,11 @@ export default function AdminLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#">
-                <Star />
-                <span>Reviews</span>
+              <SidebarMenuButton href="/admin/reviews" asChild>
+                <Link href="/admin/reviews">
+                    <Star />
+                    <span>Reviews</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>

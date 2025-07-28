@@ -39,6 +39,18 @@ export type Order = {
     createdAt: Date;
 }
 
+export type Review = {
+    id: string;
+    productId: string;
+    productName: string;
+    customerName: string;
+    rating: number;
+    title: string;
+    text: string;
+    status: 'Pending' | 'Approved' | 'Rejected';
+    createdAt: Date;
+}
+
 
 // We still need a schema for the form on the client side.
 export const ProductSchema = z.object({
