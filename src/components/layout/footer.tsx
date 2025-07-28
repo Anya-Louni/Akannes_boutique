@@ -60,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-primary/10 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Choco-Chic Boutique. Made with <Heart className="inline h-4 w-4 text-primary" /> in Algeria.</p>
+          <p>&copy; {new Date().getFullYear()} Akkane's Magical Boutique. Made with <Heart className="inline h-4 w-4 text-primary" /> in Algeria.</p>
         </div>
       </div>
     </footer>
