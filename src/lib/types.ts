@@ -32,7 +32,7 @@ export const ProductSchema = z.object({
   sizes: z.array(z.string()).min(1, 'Please select at least one size'),
   colors: z.array(z.string()).min(1, 'Please add at least one color'),
   styleTags: z.array(z.string()).min(1, 'Please add at least one style tag'),
-  images: z.array(z.string().url()).min(1, 'Please add at least one image URL'),
+  images: z.array(z.string()).min(1, 'Please add at least one image URL'),
   inStock: z.boolean(),
   isFeatured: z.boolean(),
 });

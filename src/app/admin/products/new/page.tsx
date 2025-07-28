@@ -59,8 +59,18 @@ export default function NewProductPage() {
     }, []);
 
     const onSubmit = async (data: ProductFormValues) => {
+        const payload = {
+            ...data,
+            images: data.images.filter(img => img.trim() !== ''), // Filter out empty strings
+        };
+
+        if (payload.images.length === 0) {
+            form.setError('images', { type: 'manual', message: 'Please add at least one image URL.' });
+            return;
+        }
+        
         startTransition(async () => {
-            const result = await addProduct(data);
+            const result = await addProduct(payload);
             if (result.success) {
                 toast({
                     title: 'Success!',
@@ -149,6 +159,11 @@ export default function NewProductPage() {
                                         <PlusCircle className="mr-2 h-4 w-4" />
                                         Add Image URL
                                     </Button>
+                                    <FormField
+                                        control={form.control}
+                                        name="images"
+                                        render={() => <FormMessage />}
+                                    />
                                 </CardContent>
                             </Card>
                         </div>
@@ -223,7 +238,7 @@ export default function NewProductPage() {
                                     <FormField control={form.control} name="colors" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Colors</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Black,White,Pink" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Black,White,Pink" defaultValue={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of colors.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
@@ -231,7 +246,7 @@ export default function NewProductPage() {
                                       <FormField control={form.control} name="styleTags" render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Style Tags</FormLabel>
-                                            <FormControl><Input placeholder="e.g., Gothic,Lace,Cute" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
+                                            <FormControl><Input placeholder="e.g., Gothic,Lace,Cute" defaultValue={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of style tags.</FormDescription>
                                             <FormMessage />
                                         </FormItem>
