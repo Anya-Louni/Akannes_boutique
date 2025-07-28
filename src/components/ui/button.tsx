@@ -12,8 +12,8 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground border-primary rounded-xl shadow-[0_5px_0_hsl(var(--primary-dark))] hover:bg-primary/90 active:translate-y-1 active:shadow-[0_2px_0_hsl(var(--primary-dark))]",
         destructive: "bg-destructive text-destructive-foreground rounded-xl shadow-[0_5px_0_hsl(var(--destructive)/0.8)] active:translate-y-1 active:shadow-[0_2px_0_hsl(var(--destructive)/0.8)]",
         outline: "bg-accent/80 text-accent-foreground border-accent-dark border-2 rounded-xl shadow-[0_5px_0_hsl(var(--accent-dark))] hover:bg-accent/90 active:translate-y-1 active:shadow-[0_2px_0_hsl(var(--accent-dark))]",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md shadow-[0_4px_0_hsl(var(--muted))] active:translate-y-0.5 active:shadow-[0_2px_0_hsl(var(--muted))]",
-        ghost: "hover:bg-accent hover:text-accent-foreground rounded-md",
+        secondary: "bg-secondary text-secondary-foreground rounded-xl shadow-[0_4px_0_hsl(var(--muted))] active:translate-y-0.5 active:shadow-[0_2px_0_hsl(var(--muted))]",
+        ghost: "hover:bg-secondary hover:text-secondary-foreground rounded-md hover:animate-button-wobble",
         link: "text-primary underline-offset-4 hover:underline rounded-md",
       },
       size: {

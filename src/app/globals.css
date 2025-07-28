@@ -193,6 +193,11 @@
   75% { transform: rotate(1deg) scale(1.02); }
 }
 
+.animate-button-wobble {
+    animation: button-wobble 0.5s ease-in-out;
+}
+
+
 /* Bubble animation */
 .bubbles {
   position: absolute;
