@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlusCircle, ShoppingBag } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
 import { getProducts } from '@/lib/products';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
+import { ProductTable } from '@/components/admin/products/product-table';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,54 +28,11 @@ export default async function ProductsPage() {
                 <CardHeader>
                     <CardTitle>Your Product Inventory</CardTitle>
                     <CardDescription>
-                        Here is a list of all the products in your store.
+                        Here is a list of all the products in your store. You can edit or delete them.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="hidden w-[100px] sm:table-cell">
-                                    <span className="sr-only">Image</span>
-                                </TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Price</TableHead>
-                                <TableHead>Category</TableHead>
-                                <TableHead>
-                                    <span className="sr-only">Actions</span>
-                                </TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {products.map((product) => (
-                                <TableRow key={product.id}>
-                                    <TableCell className="hidden sm:table-cell">
-                                        <Image
-                                            alt={product.name}
-                                            className="aspect-square rounded-md object-cover"
-                                            height="64"
-                                            src={product.images[0] || 'https://placehold.co/64x64.png'}
-                                            width="64"
-                                        />
-                                    </TableCell>
-                                    <TableCell className="font-medium">{product.name}</TableCell>
-                                    <TableCell>
-                                        <Badge variant={product.inStock ? 'default' : 'destructive'}>
-                                            {product.inStock ? 'In Stock' : 'Out of Stock'}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>{product.price.toLocaleString()} DZD</TableCell>
-                                    <TableCell>{product.category}</TableCell>
-                                    <TableCell>
-                                        <Button size="sm" variant="outline">
-                                            Edit
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                   <ProductTable products={products} />
                 </CardContent>
             </Card>
         </div>
