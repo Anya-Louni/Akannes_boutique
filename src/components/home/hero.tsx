@@ -22,7 +22,7 @@ export function Hero() {
       <div className="relative z-10 text-center p-4 animate-fadeIn">
         <h1 className={cn(
           "font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-shadow-magic",
-          "text-primary-foreground"
+          "text-primary"
         )}>
           Dress Your Dreams
         </h1>
