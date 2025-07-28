@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -5,15 +6,18 @@ import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import type { Order } from '@/lib/types';
-import { MoreHorizontal, Eye, Truck, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { MoreHorizontal, Eye, Truck, CheckCircle, XCircle, Loader2, ChevronsUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/hooks/use-toast';
 import { updateOrderStatus } from '@/app/admin/orders/actions';
+import { cn } from '@/lib/utils';
 
 interface OrderTableProps {
   orders: Order[];
 }
+
+const statusOptions: Order['status'][] = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
 
 export function OrderTable({ orders }: OrderTableProps) {
   const [isUpdating, setIsUpdating] = React.useState<string | null>(null);
@@ -78,11 +82,35 @@ export function OrderTable({ orders }: OrderTableProps) {
       </TableHeader>
       <TableBody>
         {orders.map((order) => (
-          <TableRow key={order.id}>
+          <TableRow key={order.id} className={cn(isUpdating === order.id && "opacity-50")}>
             <TableCell className="font-medium">#{order.id.slice(0, 6)}</TableCell>
             <TableCell>{order.customerName}</TableCell>
             <TableCell>
-              <Badge variant={getStatusVariant(order.status)}>{order.status}</Badge>
+               <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2 p-1 h-auto disabled:opacity-100" disabled={isUpdating === order.id}>
+                    <Badge variant={getStatusVariant(order.status)}>{order.status}</Badge>
+                    {isUpdating === order.id ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ): (
+                      <ChevronsUpDown className="h-3 w-3 text-muted-foreground" />
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  <DropdownMenuLabel>Change status</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {statusOptions.map(status => (
+                    <DropdownMenuItem 
+                      key={status} 
+                      onClick={() => handleStatusChange(order.id, status)}
+                      disabled={order.status === status}
+                    >
+                      {status}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </TableCell>
              <TableCell>
               <Badge variant={getPaymentStatusVariant(order.paymentStatus)}>{order.paymentStatus}</Badge>
@@ -90,28 +118,20 @@ export function OrderTable({ orders }: OrderTableProps) {
             <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
             <TableCell className="text-right">{order.total.toLocaleString()} DZD</TableCell>
             <TableCell className="text-right">
-              {isUpdating === order.id ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem asChild>
-                      <Link href={`/admin/orders/${order.id}`}><Eye />View Details</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => handleStatusChange(order.id, 'Shipped')} disabled={order.status === 'Shipped' || order.status === 'Delivered'}><Truck />Mark as Shipped</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleStatusChange(order.id, 'Delivered')} disabled={order.status === 'Delivered'}><CheckCircle />Mark as Delivered</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleStatusChange(order.id, 'Cancelled')} className="text-destructive focus:text-destructive" disabled={order.status === 'Cancelled' || order.status === 'Delivered'}><XCircle />Cancel Order</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0" disabled={isUpdating === order.id}>
+                    <span className="sr-only">Open menu</span>
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/admin/orders/${order.id}`} className="flex items-center gap-2"><Eye />View Details</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </TableCell>
           </TableRow>
         ))}
