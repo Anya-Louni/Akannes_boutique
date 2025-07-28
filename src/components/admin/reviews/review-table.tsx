@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -7,6 +8,7 @@ import type { Review } from '@/lib/types';
 import { MoreHorizontal, Star, CheckCircle, XCircle, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { ReviewDetailsModal } from './review-details-modal';
 
 interface ReviewTableProps {
   reviews: Review[];
@@ -24,6 +26,14 @@ const StarRating = ({ rating }: { rating: number }) => (
 );
 
 export function ReviewTable({ reviews }: ReviewTableProps) {
+  const [selectedReview, setSelectedReview] = React.useState<Review | null>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleViewReview = (review: Review) => {
+    setSelectedReview(review);
+    setIsModalOpen(true);
+  };
+
   const getStatusVariant = (status: Review['status']) => {
     switch (status) {
       case 'Approved':
@@ -38,65 +48,74 @@ export function ReviewTable({ reviews }: ReviewTableProps) {
   };
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Customer</TableHead>
-          <TableHead>Rating</TableHead>
-          <TableHead>Product</TableHead>
-          <TableHead className="max-w-[300px]">Review</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Date</TableHead>
-          <TableHead>
-            <span className="sr-only">Actions</span>
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {reviews.map((review) => (
-          <TableRow key={review.id}>
-            <TableCell className="font-medium">{review.customerName}</TableCell>
-            <TableCell>
-              <StarRating rating={review.rating} />
-            </TableCell>
-            <TableCell>{review.productName}</TableCell>
-            <TableCell className="max-w-[300px]">
-              <p className="font-semibold truncate">{review.title}</p>
-              <p className="text-muted-foreground truncate">{review.text}</p>
-            </TableCell>
-            <TableCell>
-              <Badge variant={getStatusVariant(review.status)}>{review.status}</Badge>
-            </TableCell>
-            <TableCell>{new Date(review.createdAt).toLocaleDateString()}</TableCell>
-            <TableCell className="text-right">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0">
-                    <span className="sr-only">Open menu</span>
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem>
-                    <Eye className="mr-2 h-4 w-4" />
-                    View Review
-                  </DropdownMenuItem>
-                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <CheckCircle className="mr-2 h-4 w-4" />
-                    Approve
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="text-destructive focus:text-destructive">
-                    <XCircle className="mr-2 h-4 w-4" />
-                    Reject
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell>
+    <>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Customer</TableHead>
+            <TableHead>Rating</TableHead>
+            <TableHead>Product</TableHead>
+            <TableHead className="max-w-[300px]">Review</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Date</TableHead>
+            <TableHead>
+              <span className="sr-only">Actions</span>
+            </TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {reviews.map((review) => (
+            <TableRow key={review.id}>
+              <TableCell className="font-medium">{review.customerName}</TableCell>
+              <TableCell>
+                <StarRating rating={review.rating} />
+              </TableCell>
+              <TableCell>{review.productName}</TableCell>
+              <TableCell className="max-w-[300px]">
+                <p className="font-semibold truncate">{review.title}</p>
+                <p className="text-muted-foreground truncate">{review.text}</p>
+              </TableCell>
+              <TableCell>
+                <Badge variant={getStatusVariant(review.status)}>{review.status}</Badge>
+              </TableCell>
+              <TableCell>{new Date(review.createdAt).toLocaleDateString()}</TableCell>
+              <TableCell className="text-right">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                      <span className="sr-only">Open menu</span>
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuItem onSelect={() => handleViewReview(review)}>
+                      <Eye className="mr-2 h-4 w-4" />
+                      View Review
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <CheckCircle className="mr-2 h-4 w-4" />
+                      Approve
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="text-destructive focus:text-destructive">
+                      <XCircle className="mr-2 h-4 w-4" />
+                      Reject
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {selectedReview && (
+        <ReviewDetailsModal
+          isOpen={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          review={selectedReview}
+        />
+      )}
+    </>
   );
 }
