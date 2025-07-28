@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { Palette, Store, DollarSign, Save } from 'lucide-react';
+import { Store, Languages, Moon, DollarSign, Save, Settings } from 'lucide-react';
 
 export default function SettingsPage() {
     const { toast } = useToast();
@@ -49,27 +50,34 @@ export default function SettingsPage() {
                 <Card>
                     <CardHeader>
                          <CardTitle className="flex items-center gap-2">
-                            <Palette className="h-6 w-6" />
-                            <span>Theme & Appearance</span>
+                            <Languages className="h-6 w-6" />
+                            <span>Language & Appearance</span>
                         </CardTitle>
-                        <CardDescription>Customize the look and feel of your website.</CardDescription>
+                        <CardDescription>Configure localization and theme settings.</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="primary-color">Primary Color</Label>
-                                <div className="flex items-center gap-2">
-                                    <Input id="primary-color" defaultValue="#854d27" className="w-24"/>
-                                    <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: '#854d27' }}></div>
-                                </div>
+                    <CardContent className="space-y-6">
+                        <div className="space-y-2">
+                            <Label htmlFor="language">Store Language</Label>
+                            <Select defaultValue="en" disabled>
+                                <SelectTrigger className="w-[280px]">
+                                    <SelectValue placeholder="Select language" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="en">English</SelectItem>
+                                    <SelectItem value="fr" disabled>Français (coming soon)</SelectItem>
+                                    <SelectItem value="ar" disabled>العربية (coming soon)</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+                            <div className="space-y-0.5">
+                                <Label className="flex items-center gap-2">
+                                    <Moon className="h-4 w-4" />
+                                    <span>Dark Mode</span>
+                                </Label>
+                                <FormDescription>This feature is currently under construction.</FormDescription>
                             </div>
-                             <div className="space-y-2">
-                                <Label htmlFor="accent-color">Accent Color</Label>
-                                 <div className="flex items-center gap-2">
-                                    <Input id="accent-color" defaultValue="#f7c5d7" className="w-24"/>
-                                     <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: '#f7c5d7' }}></div>
-                                </div>
-                            </div>
+                            <Switch disabled />
                         </div>
                     </CardContent>
                 </Card>
@@ -78,14 +86,21 @@ export default function SettingsPage() {
                     <CardHeader>
                          <CardTitle className="flex items-center gap-2">
                             <DollarSign className="h-6 w-6" />
-                            <span>Currency</span>
+                            <span>Payments & Currency</span>
                         </CardTitle>
-                        <CardDescription>Set the default currency for your store.</CardDescription>
+                        <CardDescription>Set the default currency and payment options for your store.</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="space-y-6">
                          <div className="space-y-2 max-w-xs">
-                            <Label htmlFor="currency">Currency Code</Label>
+                            <Label htmlFor="currency">Store Currency</Label>
                             <Input id="currency" defaultValue="DZD" />
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+                            <div className="space-y-0.5">
+                                <Label>Enable Currency Converter</Label>
+                                <FormDescription>Allow customers to see prices in other currencies.</FormDescription>
+                            </div>
+                            <Switch />
                         </div>
                     </CardContent>
                 </Card>
@@ -99,4 +114,8 @@ export default function SettingsPage() {
             </div>
         </div>
     );
+}
+
+function FormDescription({ children }: { children: React.ReactNode }) {
+    return <p className="text-sm text-muted-foreground">{children}</p>;
 }
