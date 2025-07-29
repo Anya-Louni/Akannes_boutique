@@ -19,45 +19,45 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-primary/20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-primary/10 shadow-sm">
+      <div className="container mx-auto px-4 sm:px-8 lg:px-16">
+        <div className="flex items-center justify-between h-24">
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center gap-2">
-              <Logo />
-            </Link>
           </div>
-          
-          <nav className="hidden md:flex md:items-center md:gap-1 lg:gap-2">
+
+          <nav className="hidden md:flex md:items-center md:gap-3 lg:gap-4">
             {navLinks.map(({ href, label }) => (
-              <Button key={href} variant="ghost" asChild>
-                <Link href={href} className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors duration-300 px-4 py-2">
+              <Button key={href} variant="ghost" asChild className="rounded-lg px-5 py-2 text-xl font-semibold bg-white hover:bg-pink-50 text-primary shadow-sm border border-pink-100 transition-all duration-200">
+                <Link href={href} className="">
                   {label}
                 </Link>
               </Button>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-              <Search className="h-6 w-6 text-foreground/80" />
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="hidden md:inline-flex bg-white hover:bg-purple-50 shadow-sm border border-purple-100">
+              <Search className="h-7 w-7 text-primary" />
             </Button>
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-              <Heart className="h-6 w-6 text-foreground/80" />
+            <Button variant="ghost" size="icon" className="hidden md:inline-flex bg-white hover:bg-pink-50 shadow-sm border border-pink-100">
+              <Heart className="h-7 w-7 text-primary" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <User className="h-6 w-6 text-foreground/80" />
+            <Button variant="ghost" size="icon" className="bg-white hover:bg-blue-50 shadow-sm border border-blue-100">
+              <User className="h-7 w-7 text-primary" />
             </Button>
             <CartWidget />
             <div className="md:hidden">
-              <Button onClick={() => setIsMenuOpen(!isMenuOpen)} variant="ghost" size="icon">
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <Button onClick={() => setIsMenuOpen(!isMenuOpen)} variant="ghost" size="icon" className="bg-white hover:bg-pink-50 shadow-sm border border-pink-100">
+                {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
               </Button>
             </div>
           </div>
         </div>
       </div>
-      
+      <div className="w-full">
+            
+      </div>
+
       {/* Mobile Menu */}
       <div
         className={cn(
@@ -65,16 +65,20 @@ export default function Header() {
           isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         )}
       >
-        <nav className="flex flex-col items-center gap-4 px-2 pt-2 pb-4 border-t border-primary/10">
+        <nav className="flex flex-col items-center gap-4 px-4 pt-4 pb-6 border-t border-primary/10 bg-white rounded-b-2xl shadow-sm">
           {navLinks.map(({ href, label }) => (
-            <Button key={href} variant="ghost" asChild className="w-full">
-              <Link href={href} onClick={() => setIsMenuOpen(false)} className="text-lg font-medium text-foreground hover:text-primary">
+            <Button key={href} variant="ghost" asChild className="w-full rounded-lg px-5 py-3 text-xl font-semibold bg-pink-50 hover:bg-white text-primary shadow-sm border border-pink-100 transition-all duration-200">
+              <Link href={href} onClick={() => setIsMenuOpen(false)} className="">
                 {label}
               </Link>
             </Button>
           ))}
         </nav>
       </div>
+
     </header>
   );
 }
+
+
+

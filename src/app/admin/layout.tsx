@@ -1,3 +1,4 @@
+"use client";
 
 import {
   SidebarProvider,
@@ -14,6 +15,7 @@ import {
 import Logo from '@/components/icons/Logo';
 import { LayoutDashboard, ShoppingBag, Users, Star, Settings, LogOut, Home, Tag, Package } from 'lucide-react';
 import Link from 'next/link';
+import Dock from '@/components/admin/Dock';
 
 export default function AdminLayout({
   children,
@@ -21,84 +23,51 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
-          <div className="flex items-center justify-between">
-            <Logo />
-            <SidebarTrigger />
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="/admin" asChild>
-                <Link href="/admin">
-                    <LayoutDashboard />
-                    <span>Dashboard</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-             <SidebarMenuItem>
-              <SidebarMenuButton href="/admin/categories" asChild>
-                <Link href="/admin/categories">
-                    <Tag />
-                    <span>Categories</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="/admin/products" asChild>
-                <Link href="/admin/products">
-                  <ShoppingBag />
-                  <span>Products</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="/admin/orders" asChild>
-                 <Link href="/admin/orders">
-                    <Package />
-                    <span>Orders</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="/admin/reviews" asChild>
-                <Link href="/admin/reviews">
-                    <Star />
-                    <span>Reviews</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarContent>
-        <SidebarFooter>
-            <SidebarMenu>
-                 <SidebarMenuItem>
-                    <SidebarMenuButton href="/">
-                        <Home />
-                        <span>Back to Store</span>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton href="/admin/settings" asChild>
-                       <Link href="/admin/settings">
-                          <Settings />
-                          <span>Settings</span>
-                       </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton href="#">
-                        <LogOut />
-                        <span>Logout</span>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            </SidebarMenu>
-        </SidebarFooter>
-      </Sidebar>
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative pb-32">
+      <main className="max-w-7xl mx-auto p-6">
+        <div className="rounded-3xl bg-white/80 shadow-xl p-8 mt-8">
+          {children}
+        </div>
+      </main>
+      <Dock
+        items={[
+          {
+            icon: <LayoutDashboard className="h-8 w-8" />,
+            label: 'Dashboard',
+            onClick: () => window.location.href = '/admin',
+          },
+          {
+            icon: <Tag className="h-8 w-8" />,
+            label: 'Categories',
+            onClick: () => window.location.href = '/admin/categories',
+          },
+          {
+            icon: <ShoppingBag className="h-8 w-8" />,
+            label: 'Products',
+            onClick: () => window.location.href = '/admin/products',
+          },
+          {
+            icon: <Package className="h-8 w-8" />,
+            label: 'Orders',
+            onClick: () => window.location.href = '/admin/orders',
+          },
+          {
+            icon: <Star className="h-8 w-8" />,
+            label: 'Reviews',
+            onClick: () => window.location.href = '/admin/reviews',
+          },
+          {
+            icon: <Settings className="h-8 w-8" />,
+            label: 'Settings',
+            onClick: () => window.location.href = '/admin/settings',
+          },
+          {
+            icon: <Home className="h-8 w-8" />,
+            label: 'Store',
+            onClick: () => window.location.href = '/',
+          },
+        ]}
+      />
+    </div>
   );
 }
