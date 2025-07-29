@@ -19,7 +19,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-primary/10 shadow-sm">
+    <header className="sticky top-0 z-50 border-b border-primary/10 shadow-sm bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 backdrop-blur-lg relative">
+      {/* Shimmer effect */}
+      <div className="absolute inset-0 w-full h-full shimmer-bg pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-8 lg:px-16">
         <div className="flex items-center justify-between h-24">
           <div className="flex-shrink-0">
