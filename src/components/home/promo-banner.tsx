@@ -8,7 +8,6 @@ export function PromoBanner() {
     <section className="py-16 sm:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <Card className="bg-primary/10 rounded-3xl overflow-hidden text-center p-8 md:p-16 relative border-2 border-primary/30 shadow-xl">
-          <div className="absolute -inset-2 lace-border opacity-50"></div>
           <div className="relative z-10 animate-fadeIn">
             <div className="flex justify-center mb-4">
               <Gift className="h-12 w-12 text-primary" />

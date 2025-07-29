@@ -12,9 +12,13 @@ export default function Home() {
       <Hero />
       <LaceBorder />
       <FeaturedProducts />
+      <LaceBorder />
       <StyleQuiz />
+      <LaceBorder />
       <Testimonials />
+      <LaceBorder />
       <PromoBanner />
+      <LaceBorder />
       <InstagramFeed />
     </div>
   );
