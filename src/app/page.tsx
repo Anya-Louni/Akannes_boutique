@@ -5,7 +5,6 @@ import { Testimonials } from '@/components/home/testimonials';
 import { InstagramFeed } from '@/components/home/instagram-feed';
 import { PromoBanner } from '@/components/home/promo-banner';
 import { LaceBorder } from '@/components/ui/lace-border';
-import { StyleQuiz } from '@/components/home/style-quiz';
 
 export default function Home() {
   return (
@@ -13,8 +12,6 @@ export default function Home() {
       <Hero />
       <LaceBorder />
       <FeaturedProducts />
-      <LaceBorder />
-      <StyleQuiz />
       <LaceBorder />
       <Testimonials />
       <LaceBorder />
