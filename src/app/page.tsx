@@ -9,7 +9,7 @@ import { MagicalCharm } from '@/components/home/magical-charm';
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div>
       <Hero />
       <LaceBorder />
       <FeaturedProducts />
