@@ -58,7 +58,7 @@ export default function StockAlerts() {
         className={cn(
           "relative rounded-full border-primary/30 bg-white/95 backdrop-blur-sm",
           "hover:bg-primary/10 transition-all duration-200",
-          totalAlerts > 0 && "animate-pulse border-orange-300 text-orange-600"
+          totalAlerts > 0 && "border-orange-300 text-orange-600"
         )}
       >
         <Bell className="h-4 w-4" />

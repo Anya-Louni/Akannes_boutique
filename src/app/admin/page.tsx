@@ -8,98 +8,98 @@ export default async function AdminDashboardPage() {
   const stats = await getDashboardStats();
 
   return (
-    <div className="flex-1 p-4 md:p-8 pt-6 min-h-screen bg-gradient-to-br from-amber-50/30 via-orange-50/20 to-yellow-50/30 relative overflow-hidden">
-      {/* Beautiful background patterns with warm browns */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-100/20 via-orange-100/20 to-yellow-100/20" />
-      <div className="absolute top-0 left-0 w-96 h-96 bg-amber-200/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-200/10 rounded-full blur-3xl" />
+    <div className="flex-1 p-4 md:p-8 pt-6 min-h-screen bg-gradient-to-br from-pink-50/50 via-rose-50/30 to-purple-50/20 relative overflow-hidden">
+      {/* Beautiful background patterns with soft pinks */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-100/10 via-rose-100/15 to-purple-100/10" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-pink-200/8 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-200/8 rounded-full blur-3xl" />
       
       <div className="relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
               ✨ Akanne's Dashboard
             </h1>
             <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your magical boutique.</p>
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-          <Card className="bg-gradient-to-br from-amber-600 to-orange-600 border-0 shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 text-white">
+        {/* Bento Box Style Stats Cards */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+          <Card className="bg-gradient-to-br from-pink-100/80 to-rose-100/60 border border-pink-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-lg font-semibold">Total Revenue</CardTitle>
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <DollarSign className="h-5 w-5" />
+              <CardTitle className="text-sm font-medium text-pink-700">Total Revenue</CardTitle>
+              <div className="p-2 bg-pink-200/40 rounded-lg">
+                <DollarSign className="h-4 w-4 text-pink-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">{formatCurrency(stats.totalRevenue)}</div>
-              <div className="flex items-center text-sm text-amber-100">
+              <div className="text-2xl font-bold text-pink-800 mb-1">{formatCurrency(stats.totalRevenue)}</div>
+              <div className="flex items-center text-xs text-pink-600">
                 {stats.monthlyGrowth.revenue >= 0 ? (
-                  <TrendingUp className="h-4 w-4 mr-1" />
+                  <TrendingUp className="h-3 w-3 mr-1" />
                 ) : (
-                  <TrendingDown className="h-4 w-4 mr-1" />
+                  <TrendingDown className="h-3 w-3 mr-1" />
                 )}
                 {formatGrowth(stats.monthlyGrowth.revenue)} from last month
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-orange-600 to-red-600 border-0 shadow-xl shadow-orange-500/20 hover:shadow-orange-500/30 transition-all duration-300 text-white">
+          <Card className="bg-gradient-to-br from-rose-100/80 to-pink-100/60 border border-rose-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-lg font-semibold">Sales</CardTitle>
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <ShoppingBag className="h-5 w-5" />
+              <CardTitle className="text-sm font-medium text-rose-700">Sales</CardTitle>
+              <div className="p-2 bg-rose-200/40 rounded-lg">
+                <ShoppingBag className="h-4 w-4 text-rose-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">{stats.totalSales.toLocaleString()}</div>
-              <div className="flex items-center text-sm text-orange-100">
+              <div className="text-2xl font-bold text-rose-800 mb-1">{stats.totalSales.toLocaleString()}</div>
+              <div className="flex items-center text-xs text-rose-600">
                 {stats.monthlyGrowth.sales >= 0 ? (
-                  <TrendingUp className="h-4 w-4 mr-1" />
+                  <TrendingUp className="h-3 w-3 mr-1" />
                 ) : (
-                  <TrendingDown className="h-4 w-4 mr-1" />
+                  <TrendingDown className="h-3 w-3 mr-1" />
                 )}
                 {formatGrowth(stats.monthlyGrowth.sales)} from last month
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-yellow-600 to-orange-600 border-0 shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/30 transition-all duration-300 text-white">
+          <Card className="bg-gradient-to-br from-purple-100/80 to-pink-100/60 border border-purple-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-lg font-semibold">Customers</CardTitle>
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <Users className="h-5 w-5" />
+              <CardTitle className="text-sm font-medium text-purple-700">Customers</CardTitle>
+              <div className="p-2 bg-purple-200/40 rounded-lg">
+                <Users className="h-4 w-4 text-purple-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">{stats.totalCustomers.toLocaleString()}</div>
-              <div className="flex items-center text-sm text-yellow-100">
+              <div className="text-2xl font-bold text-purple-800 mb-1">{stats.totalCustomers.toLocaleString()}</div>
+              <div className="flex items-center text-xs text-purple-600">
                 {stats.monthlyGrowth.customers >= 0 ? (
-                  <TrendingUp className="h-4 w-4 mr-1" />
+                  <TrendingUp className="h-3 w-3 mr-1" />
                 ) : (
-                  <TrendingDown className="h-4 w-4 mr-1" />
+                  <TrendingDown className="h-3 w-3 mr-1" />
                 )}
                 {formatGrowth(stats.monthlyGrowth.customers)} from last month
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-amber-500 to-yellow-500 border-0 shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 text-white">
+          <Card className="bg-gradient-to-br from-yellow-100/80 to-pink-100/60 border border-yellow-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-lg font-semibold">Average Rating</CardTitle>
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <Star className="h-5 w-5" />
+              <CardTitle className="text-sm font-medium text-yellow-700">Average Rating</CardTitle>
+              <div className="p-2 bg-yellow-200/40 rounded-lg">
+                <Star className="h-4 w-4 text-yellow-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">
+              <div className="text-2xl font-bold text-yellow-800 mb-1">
                 {stats.averageRating > 0 ? `${stats.averageRating.toFixed(1)} ⭐` : 'No ratings'}
               </div>
-              <div className="flex items-center text-sm text-amber-100">
-                <Heart className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-xs text-yellow-600">
+                <Heart className="h-3 w-3 mr-1" />
                 Based on {stats.totalReviews} reviews
               </div>
             </CardContent>
@@ -138,10 +138,10 @@ export default async function AdminDashboardPage() {
 
         {/* Main Content */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7 mb-8">
-          <Card className="col-span-4 bg-white/80 backdrop-blur-sm border border-amber-200/50 shadow-xl shadow-amber-500/5">
-            <CardHeader className="border-b border-amber-100">
+          <Card className="col-span-4 bg-white/90 backdrop-blur-sm border border-pink-200/40 shadow-lg shadow-pink-500/5 rounded-2xl">
+            <CardHeader className="border-b border-pink-100/50">
               <CardTitle className="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                <Package className="h-5 w-5 text-amber-600" />
+                <Package className="h-5 w-5 text-pink-500" />
                 Recent Orders
               </CardTitle>
               <CardDescription className="text-gray-600">
@@ -155,14 +155,14 @@ export default async function AdminDashboardPage() {
               {stats.recentOrders.length > 0 ? (
                 <div className="space-y-4">
                   {stats.recentOrders.slice(0, 5).map((order) => (
-                    <div key={order.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                    <div key={order.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50/80 to-rose-50/60 rounded-lg border border-pink-100/50 hover:border-pink-200/60 transition-all">
                       <div>
                         <p className="font-medium text-gray-800">Order #{order.id.slice(-8)}</p>
                         <p className="text-sm text-gray-600">{order.customerName}</p>
                         <p className="text-xs text-gray-500 capitalize">{order.status}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-amber-700">{formatCurrency(order.total)}</p>
+                        <p className="font-semibold text-pink-700">{formatCurrency(order.total)}</p>
                         <p className="text-sm text-gray-500">
                           {new Date(order.createdAt).toLocaleDateString()}
                         </p>
@@ -179,39 +179,39 @@ export default async function AdminDashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="col-span-3 bg-white/80 backdrop-blur-sm border border-amber-200/50 shadow-xl shadow-amber-500/5">
-            <CardHeader className="border-b border-amber-100">
+          <Card className="col-span-3 bg-white/90 backdrop-blur-sm border border-pink-200/40 shadow-lg shadow-pink-500/5 rounded-2xl">
+            <CardHeader className="border-b border-pink-100/50">
               <CardTitle className="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                <Star className="h-5 w-5 text-amber-600" />
+                <Star className="h-5 w-5 text-pink-500" />
                 Quick Actions
               </CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-4 pt-6">
               <Link href="/admin/products/new" className="group">
-                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-amber-600 to-orange-600 rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all duration-300 text-white shadow-lg hover:shadow-xl transform hover:scale-105">
-                  <ShoppingBag className="h-8 w-8 mb-3 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm font-medium text-center">Add Product</span>
+                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-pink-200/60 to-rose-200/40 rounded-xl hover:from-pink-300/70 hover:to-rose-300/50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 border border-pink-200/30">
+                  <ShoppingBag className="h-8 w-8 mb-3 text-pink-700 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-center text-pink-800">Add Product</span>
                 </div>
               </Link>
               
               <Link href="/admin/categories" className="group">
-                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-orange-600 to-red-600 rounded-xl hover:from-orange-700 hover:to-red-700 transition-all duration-300 text-white shadow-lg hover:shadow-xl transform hover:scale-105">
-                  <Tag className="h-8 w-8 mb-3 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm font-medium text-center">Categories</span>
+                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-purple-200/60 to-pink-200/40 rounded-xl hover:from-purple-300/70 hover:to-pink-300/50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 border border-purple-200/30">
+                  <Tag className="h-8 w-8 mb-3 text-purple-700 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-center text-purple-800">Categories</span>
                 </div>
               </Link>
               
               <Link href="/admin/orders" className="group">
-                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-yellow-600 to-orange-600 rounded-xl hover:from-yellow-700 hover:to-orange-700 transition-all duration-300 text-white shadow-lg hover:shadow-xl transform hover:scale-105">
-                  <Package className="h-8 w-8 mb-3 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm font-medium text-center">View Orders</span>
+                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-rose-200/60 to-pink-200/40 rounded-xl hover:from-rose-300/70 hover:to-pink-300/50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 border border-rose-200/30">
+                  <Package className="h-8 w-8 mb-3 text-rose-700 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-center text-rose-800">View Orders</span>
                 </div>
               </Link>
               
               <Link href="/admin/reviews" className="group">
-                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl hover:from-amber-600 hover:to-yellow-600 transition-all duration-300 text-white shadow-lg hover:shadow-xl transform hover:scale-105">
-                  <Star className="h-8 w-8 mb-3 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm font-medium text-center">Reviews</span>
+                <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-amber-200/60 to-yellow-200/40 rounded-xl hover:from-amber-300/70 hover:to-yellow-300/50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 border border-amber-200/30">
+                  <Star className="h-8 w-8 mb-3 text-amber-700 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-center text-amber-800">Reviews</span>
                 </div>
               </Link>
             </CardContent>

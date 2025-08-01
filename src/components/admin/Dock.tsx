@@ -31,14 +31,14 @@ export default function Dock({ items, className = "" }: DockProps) {
                 size="icon"
                 className={cn(
                   "relative w-12 h-12 rounded-xl",
-                  "bg-white/10 hover:bg-white/20",
-                  "border border-white/20 hover:border-white/30",
-                  "text-stone-600 dark:text-stone-300",
-                  "hover:text-stone-800 dark:hover:text-stone-100",
+                  "bg-pink-100/20 hover:bg-pink-200/30",
+                  "border border-pink-200/30 hover:border-pink-300/40",
+                  "text-pink-700 dark:text-pink-300",
+                  "hover:text-pink-800 dark:hover:text-pink-200",
                   "transition-all duration-200 ease-out",
-                  "hover:scale-110 hover:shadow-lg",
+                  "hover:scale-110 hover:shadow-lg hover:shadow-pink-200/30",
                   "active:scale-95",
-                  hoveredIndex === index && "scale-110 bg-white/20 border-white/30",
+                  hoveredIndex === index && "scale-110 bg-pink-200/30 border-pink-300/40",
                   item.className
                 )}
                 onMouseEnter={() => setHoveredIndex(index)}

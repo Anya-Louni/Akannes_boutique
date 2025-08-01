@@ -14,12 +14,22 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     <div
       className={cn(
         "relative flex items-center justify-center overflow-hidden",
-        "bg-white/10 backdrop-blur-md border border-white/20",
-        "shadow-lg shadow-black/10 rounded-full",
+        // Liquid glass base with multiple backdrop effects
+        "bg-white/5 backdrop-blur-2xl border border-white/20",
+        "shadow-2xl shadow-pink-500/20 rounded-full",
         "transition-all duration-300 ease-out",
-        "hover:bg-white/15 hover:border-white/30",
-        "dark:bg-black/10 dark:border-white/10",
-        "dark:hover:bg-black/15 dark:hover:border-white/20",
+        // Inner glow effect
+        "before:absolute before:inset-0 before:rounded-full",
+        "before:bg-gradient-to-br before:from-white/20 before:via-pink-100/10 before:to-transparent",
+        "before:shadow-inner before:shadow-white/20",
+        // Outer rim with pink tint
+        "after:absolute after:inset-[-1px] after:rounded-full after:-z-10",
+        "after:bg-gradient-to-br after:from-pink-200/30 after:via-transparent after:to-pink-100/20",
+        "after:blur-sm",
+        // Enhanced hover effects
+        "hover:bg-white/10 hover:border-white/30 hover:shadow-pink-400/30",
+        "hover:before:from-white/30 hover:before:via-pink-100/20",
+        "hover:scale-105 hover:shadow-3xl",
         className
       )}
     >
