@@ -21,12 +21,12 @@ export default function Dock({ items, className = "" }: DockProps) {
   return (
     <div className={cn(
       "fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50",
-      "flex items-center gap-2 p-3",
-      "bg-white/95 backdrop-blur-md rounded-2xl",
-      "border border-primary/20 shadow-xl",
+      "flex items-center gap-3 p-4",
+      "bg-white/98 backdrop-blur-md rounded-2xl",
+      "border-2 border-primary/30 shadow-2xl shadow-primary/20",
       "transition-all duration-300",
-      // Add cute lace border effect
-      "before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-primary/10 before:via-primary/20 before:to-primary/10 before:-z-10",
+      // Enhanced visibility with stronger background
+      "before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-primary/15 before:via-primary/25 before:to-primary/15 before:-z-10",
       className
     )}>
       {items.map((item, index) => (
@@ -52,11 +52,11 @@ export default function Dock({ items, className = "" }: DockProps) {
           >
             <div className="relative">
               {item.icon}
-              {/* Cute sparkle effect on hover */}
+              {/* Removed blinking animation - now just a subtle indicator */}
               <div className={cn(
-                "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary/40",
+                "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary/60",
                 "opacity-0 scale-0 transition-all duration-200",
-                hoveredIndex === index && "opacity-100 scale-100 animate-pulse"
+                hoveredIndex === index && "opacity-100 scale-100"
               )} />
             </div>
           </Button>

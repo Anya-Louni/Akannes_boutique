@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlusCircle } from 'lucide-react';
 import { getProducts } from '@/lib/products';
+import { ProductTable } from '@/components/admin/products/product-table';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,13 +44,18 @@ export default async function ProductsPage() {
                         <div className="p-4 border border-red-200 rounded-md bg-red-50">
                             <p className="text-red-800">Error: {error}</p>
                         </div>
-                    ) : (
-                        <div>
-                            <p>Successfully loaded {products.length} products!</p>
-                            {products.length === 0 && (
-                                <p className="text-gray-500 mt-2">No products found. Add your first product!</p>
-                            )}
+                    ) : products.length === 0 ? (
+                        <div className="text-center py-8">
+                            <p className="text-gray-500 mb-4">No products found. Add your first product!</p>
+                            <Button asChild>
+                                <Link href="/admin/products/new">
+                                    <PlusCircle className="mr-2 h-4 w-4" />
+                                    Add First Product
+                                </Link>
+                            </Button>
                         </div>
+                    ) : (
+                        <ProductTable products={products} />
                     )}
                 </CardContent>
             </Card>
