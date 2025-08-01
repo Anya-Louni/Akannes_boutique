@@ -42,8 +42,8 @@ export default function CheckoutPage() {
       if (result.success) {
         clearCart();
         toast({
-          title: 'Commande confirmée! ✨',
-          description: 'Votre commande a été reçue. Nous vous contacterons bientôt.',
+          title: 'Order Confirmed! ✨',
+          description: 'Your order has been received. We will contact you soon for confirmation.',
         });
         router.push('/checkout/success');
       } else {
@@ -52,8 +52,8 @@ export default function CheckoutPage() {
     } catch (error) {
       toast({
         variant: 'destructive',
-        title: 'Erreur',
-        description: 'Une erreur est survenue lors du traitement de votre commande.',
+        title: 'Order Error',
+        description: 'An error occurred while processing your order. Please try again.',
       });
       throw error;
     }
