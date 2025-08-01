@@ -15,7 +15,7 @@ export default function Footer() {
               Your magical wardrobe for sweet and chic fashion.
             </p>
             <div className="flex gap-4">
-              <Link href="https://instagram.com/akkanesboutique" target="_blank">
+              <Link href="https://instagram.com/akannesboutique" target="_blank">
                 <Instagram className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
               </Link>
               <Link href="#" target="_blank">
@@ -59,7 +59,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-primary/10 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Akkane's Magical Boutique. Made with <Heart className="inline h-4 w-4 text-primary" /> in Algeria.</p>
+          <p>&copy; {new Date().getFullYear()} Akanne's Magical Boutique. Made with <Heart className="inline h-4 w-4 text-primary" /> in Algeria.</p>
         </div>
       </div>
     </footer>

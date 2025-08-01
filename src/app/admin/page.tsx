@@ -1,12 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { DollarSign, Users, ShoppingBag, Star, Package, Tag } from 'lucide-react';
 import Link from 'next/link';
+import InstagramSyncComponent from '@/components/admin/instagram-sync';
 
 export default function AdminDashboardPage() {
   return (
     <div className="flex-1 p-4 md:p-8 pt-6 bg-gradient-to-br from-pink-50 via-accent to-yellow-50 relative">
       {/* Chocolate box pattern overlay */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none" style={{backgroundImage: 'repeating-linear-gradient(135deg, #f9e5d7 0px, #f9e5d7 40px, #f7d6c2 40px, #f7d6c2 80px)', opacity: 0.15}} />
+      <div className="absolute inset-0 w-full h-full pointer-events-none bg-gradient-pattern opacity-15" />
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold tracking-tight text-primary bg-accent/40 rounded-xl px-6 py-3 shadow-sm border border-accent-dark">Dashboard</h2>
       </div>
@@ -87,6 +88,11 @@ export default function AdminDashboardPage() {
               </Link>
           </CardContent>
         </Card>
+      </div>
+      
+      {/* Instagram Sync Section */}
+      <div className="mt-8">
+        <InstagramSyncComponent />
       </div>
     </div>
   );

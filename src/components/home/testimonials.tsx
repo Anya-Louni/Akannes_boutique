@@ -7,7 +7,7 @@ const testimonials = [
   {
     name: 'Yasmine B.',
     avatar: 'https://placehold.co/100x100.png',
-    text: "Absolutely in love with my dress! The quality is amazing and I feel like a real life princess. Akkane's customer service is top-notch too!",
+    text: "Absolutely in love with my dress! The quality is amazing and I feel like a real life princess. Akanne's customer service is top-notch too!",
     location: 'Algiers, Algeria',
   },
   {

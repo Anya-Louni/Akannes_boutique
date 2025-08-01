@@ -23,9 +23,9 @@ const ptSans = PT_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Akkane's Magical Boutique",
+  title: "Akanne's Magical Boutique",
   description: 'Your magical online boutique for Lolita, Gyaru, and other Japanese street fashion styles. Based in Algeria, we offer a curated collection of dresses, skirts, accessories, and more to help you live your fairytale.',
-  keywords: ['Lolita fashion', 'Gyaru', 'Japanese street fashion', 'kawaii fashion', 'Akkane', 'Algeria', 'boutique', 'e-commerce'],
+  keywords: ['Lolita fashion', 'Gyaru', 'Japanese street fashion', 'kawaii fashion', 'Akanne', 'Algeria', 'boutique', 'e-commerce'],
 };
 
 export default function RootLayout({

@@ -1,0 +1,37 @@
+/* Floating animation for magical elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+}
+
+.floatingElement {
+  animation: float 4s ease-in-out infinite;
+}
+
+.floatingElement:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 4s; }
+.floatingElement:nth-child(2) { left: 22%; animation-delay: 0.5s; animation-duration: 4.5s; }
+.floatingElement:nth-child(3) { left: 34%; animation-delay: 1s; animation-duration: 5s; }
+.floatingElement:nth-child(4) { left: 46%; animation-delay: 1.5s; animation-duration: 5.5s; }
+.floatingElement:nth-child(5) { left: 58%; animation-delay: 2s; animation-duration: 6s; }
+.floatingElement:nth-child(6) { left: 70%; animation-delay: 2.5s; animation-duration: 6.5s; }
+.floatingElement:nth-child(7) { left: 82%; animation-delay: 3s; animation-duration: 7s; }
+.floatingElement:nth-child(8) { left: 94%; animation-delay: 3.5s; animation-duration: 7.5s; }
+
+.laceBorder {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='8' viewBox='0 0 20 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 4c2.5-2 5-2 7.5 0s5 2 7.5 0 5-2 7.5 0' stroke='%23F070A1' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 20px 8px;
+}
+
+.sparklePosition {
+  z-index: 100;
+}

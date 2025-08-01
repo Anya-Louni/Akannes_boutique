@@ -16,6 +16,7 @@ import Logo from '@/components/icons/Logo';
 import { LayoutDashboard, ShoppingBag, Users, Star, Settings, LogOut, Home, Tag, Package } from 'lucide-react';
 import Link from 'next/link';
 import Dock from '@/components/admin/Dock';
+import StockAlerts from '@/components/admin/stock-alerts';
 
 export default function AdminLayout({
   children,
@@ -23,46 +24,62 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative pb-32">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50/50 via-background to-primary/5 relative pb-32">
+      {/* Lace border pattern at top */}
+      <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20"></div>
+      
+      {/* Stock Alerts */}
+      <StockAlerts />
+      
       <main className="max-w-7xl mx-auto p-6">
-        <div className="rounded-3xl bg-white/80 shadow-xl p-8 mt-8">
+        <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-xl border border-primary/10 p-8 mt-8">
+          {/* Admin header with cute styling */}
+          <div className="mb-8 text-center">
+            <div className="relative inline-block">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur opacity-30"></div>
+              <h1 className="relative text-2xl font-bold text-primary font-headline">
+                Admin Dashboard
+              </h1>
+            </div>
+            <p className="text-sm text-primary/70 mt-2">Manage your magical boutique</p>
+          </div>
           {children}
         </div>
       </main>
       <Dock
         items={[
           {
-            icon: <LayoutDashboard className="h-8 w-8" />,
+            icon: <LayoutDashboard className="h-6 w-6" />,
             label: 'Dashboard',
             onClick: () => window.location.href = '/admin',
           },
           {
-            icon: <Tag className="h-8 w-8" />,
+            icon: <Tag className="h-6 w-6" />,
             label: 'Categories',
             onClick: () => window.location.href = '/admin/categories',
           },
           {
-            icon: <ShoppingBag className="h-8 w-8" />,
+            icon: <ShoppingBag className="h-6 w-6" />,
             label: 'Products',
             onClick: () => window.location.href = '/admin/products',
           },
           {
-            icon: <Package className="h-8 w-8" />,
+            icon: <Package className="h-6 w-6" />,
             label: 'Orders',
             onClick: () => window.location.href = '/admin/orders',
           },
           {
-            icon: <Star className="h-8 w-8" />,
+            icon: <Star className="h-6 w-6" />,
             label: 'Reviews',
             onClick: () => window.location.href = '/admin/reviews',
           },
           {
-            icon: <Settings className="h-8 w-8" />,
+            icon: <Settings className="h-6 w-6" />,
             label: 'Settings',
             onClick: () => window.location.href = '/admin/settings',
           },
           {
-            icon: <Home className="h-8 w-8" />,
+            icon: <Home className="h-6 w-6" />,
             label: 'Store',
             onClick: () => window.location.href = '/',
           },

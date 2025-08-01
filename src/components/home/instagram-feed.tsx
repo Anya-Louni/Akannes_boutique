@@ -18,15 +18,15 @@ export function InstagramFeed() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fadeIn">
           <h2 className="font-headline text-4xl md:text-5xl font-bold text-primary text-shadow-magic">
-            #AkkanesBoutique
+            #AkannesBoutique
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
             Follow our magical journey and see our dolls in action on Instagram!
           </p>
           <Button asChild variant="outline" className="mt-6 rounded-full bg-background/50 backdrop-blur-sm">
-            <Link href="https://instagram.com/akkanesboutique" target="_blank">
+            <Link href="https://instagram.com/akannesboutique" target="_blank">
               <InstagramIcon className="mr-2 h-5 w-5" />
-              @akkanesboutique
+              @akannesboutique
             </Link>
           </Button>
         </div>
@@ -34,7 +34,7 @@ export function InstagramFeed() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
           {feedImages.map((src, index) => (
             <Link
-              href="https://instagram.com/akkanesboutique"
+              href="https://instagram.com/akannesboutique"
               target="_blank"
               key={index}
               className="group block overflow-hidden rounded-xl shadow-md"

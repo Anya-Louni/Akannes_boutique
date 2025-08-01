@@ -38,11 +38,11 @@ export default function SettingsPage() {
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="store-name">Store Name</Label>
-                            <Input id="store-name" defaultValue="Akkane's Magical Boutique" />
+                            <Input id="store-name" defaultValue="Akanne's Magical Boutique" />
                         </div>
                          <div className="space-y-2">
                             <Label htmlFor="contact-email">Contact Email</Label>
-                            <Input id="contact-email" type="email" defaultValue="hello@akkanesboutique.dz" />
+                            <Input id="contact-email" type="email" defaultValue="hello@akannesboutique.dz" />
                         </div>
                     </CardContent>
                 </Card>

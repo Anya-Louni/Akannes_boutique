@@ -21,7 +21,7 @@ export default function ContactPage() {
                         <div className="space-y-4 text-foreground/80">
                             <div className="flex items-center gap-4">
                                 <Mail className="h-6 w-6 text-accent"/>
-                                <a href="mailto:hello@akkanesboutique.dz" className="hover:text-primary">hello@akkanesboutique.dz</a>
+                                <a href="mailto:hello@akannesboutique.dz" className="hover:text-primary">hello@akannesboutique.dz</a>
                             </div>
                             <div className="flex items-center gap-4">
                                 <Phone className="h-6 w-6 text-accent"/>
@@ -38,8 +38,8 @@ export default function ContactPage() {
                         <h3 className="font-headline text-2xl text-primary mb-4">Follow Us</h3>
                         <div className="flex items-center gap-4">
                             <Instagram className="h-6 w-6 text-accent"/>
-                            <a href="https://instagram.com/akkanesboutique" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-primary">
-                                @akkanesboutique
+                            <a href="https://instagram.com/akannesboutique" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-primary">
+                                @akannesboutique
                             </a>
                         </div>
                     </div>

@@ -70,8 +70,8 @@ export function CartDrawer({ isOpen, onOpenChange }: CartDrawerProps) {
                   <span>Subtotal</span>
                   <span>{totalPrice.toLocaleString()} DZD</span>
                 </div>
-                <Button size="lg" className="w-full rounded-full">
-                  Proceed to Checkout
+                <Button size="lg" className="w-full rounded-full" asChild>
+                  <Link href="/checkout">Proceed to Checkout</Link>
                 </Button>
               </div>
             </SheetFooter>

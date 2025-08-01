@@ -104,3 +104,72 @@ export async function getProductById(id: string): Promise<Product | null> {
     }
     return null;
 }
+
+// Function to update product inventory
+export async function updateProductInventory(productId: string, quantitySold: number): Promise<{ success: boolean; error?: string; outOfStock?: boolean }> {
+  try {
+    const productRef = doc(db, 'products', productId);
+    const productSnap = await getDoc(productRef);
+    
+    if (!productSnap.exists()) {
+      return { success: false, error: 'Product not found' };
+    }
+    
+    const currentProduct = productSnap.data() as Product;
+    const newQuantity = (currentProduct.stockQuantity || 0) - quantitySold;
+    
+    if (newQuantity < 0) {
+      return { success: false, error: 'Insufficient stock' };
+    }
+    
+    const updateData: any = {
+      stockQuantity: newQuantity,
+      updatedAt: new Date(),
+    };
+    
+    // If stock reaches 0, mark as out of stock
+    if (newQuantity === 0) {
+      updateData.inStock = false;
+      
+      // Here you could add notification logic
+      console.log(`🚨 Product "${currentProduct.name}" is now out of stock!`);
+    }
+    
+    await updateDoc(productRef, updateData);
+    
+    revalidatePath('/admin/products');
+    revalidatePath('/shop');
+    revalidatePath('/');
+    
+    return { 
+      success: true, 
+      outOfStock: newQuantity === 0 
+    };
+  } catch (error) {
+    console.error('Error updating inventory:', error);
+    return { success: false, error: 'Failed to update inventory' };
+  }
+}
+
+// Function to check if product has sufficient stock
+export async function checkProductStock(productId: string, quantity: number): Promise<{ available: boolean; currentStock: number }> {
+  try {
+    const productRef = doc(db, 'products', productId);
+    const productSnap = await getDoc(productRef);
+    
+    if (!productSnap.exists()) {
+      return { available: false, currentStock: 0 };
+    }
+    
+    const product = productSnap.data() as Product;
+    const currentStock = product.stockQuantity || 0;
+    
+    return {
+      available: currentStock >= quantity && product.inStock,
+      currentStock
+    };
+  } catch (error) {
+    console.error('Error checking stock:', error);
+    return { available: false, currentStock: 0 };
+  }
+}

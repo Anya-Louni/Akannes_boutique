@@ -3,12 +3,19 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlusCircle } from 'lucide-react';
 import { getProducts } from '@/lib/products';
-import { ProductTable } from '@/components/admin/products/product-table';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ProductsPage() {
-    const products = await getProducts();
+    let products: any[] = [];
+    let error: string | null = null;
+    
+    try {
+        products = await getProducts();
+    } catch (e) {
+        error = e instanceof Error ? e.message : 'Failed to fetch products';
+        console.error('Error fetching products:', e);
+    }
 
     return (
         <div className="flex-1 space-y-4 p-8 pt-6">
@@ -23,8 +30,8 @@ export default async function ProductsPage() {
                     </Button>
                 </div>
             </div>
-
-             <Card>
+            
+            <Card>
                 <CardHeader>
                     <CardTitle>Your Product Inventory</CardTitle>
                     <CardDescription>
@@ -32,7 +39,18 @@ export default async function ProductsPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                   <ProductTable products={products} />
+                    {error ? (
+                        <div className="p-4 border border-red-200 rounded-md bg-red-50">
+                            <p className="text-red-800">Error: {error}</p>
+                        </div>
+                    ) : (
+                        <div>
+                            <p>Successfully loaded {products.length} products!</p>
+                            {products.length === 0 && (
+                                <p className="text-gray-500 mt-2">No products found. Add your first product!</p>
+                            )}
+                        </div>
+                    )}
                 </CardContent>
             </Card>
         </div>

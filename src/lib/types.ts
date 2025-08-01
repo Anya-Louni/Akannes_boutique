@@ -12,6 +12,7 @@ export type Product = {
   sizes: string[];
   inStock: boolean;
   isFeatured?: boolean;
+  stockQuantity: number;
 };
 
 export type Category = {
@@ -25,6 +26,7 @@ export type OrderItem = {
     name: string;
     quantity: number;
     price: number;
+    size?: string;
 }
 
 export type Order = {
@@ -64,6 +66,7 @@ export const ProductSchema = z.object({
   images: z.array(z.string().min(1, 'Image URL cannot be empty.')).min(1, 'Please add at least one image URL'),
   inStock: z.boolean(),
   isFeatured: z.boolean(),
+  stockQuantity: z.coerce.number().min(0, 'Stock quantity must be 0 or more'),
 });
 
 export type ProductFormValues = z.infer<typeof ProductSchema>;

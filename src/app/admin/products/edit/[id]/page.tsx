@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductSchema, type ProductFormValues, type Product } from '@/lib/types';
 import { getProductById, updateProduct } from '@/lib/products';
@@ -20,6 +20,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { Loader2, PlusCircle, Trash2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import ImageUpload from '@/components/admin/image-upload';
 
 const SIZES = ['S', 'M', 'L', 'XL', 'One Size'];
 
@@ -49,6 +50,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
             images: [],
             inStock: true,
             isFeatured: false,
+            stockQuantity: 0,
         },
     });
 
@@ -72,16 +74,11 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                 sizes: fetchedProduct.sizes || [],
                 colors: fetchedProduct.colors || [],
                 images: fetchedProduct.images || [],
+                stockQuantity: fetchedProduct.stockQuantity || 0,
             });
         }
         loadInitialData();
     }, [params.id, form]);
-
-
-    const { fields: imageFields, append: appendImage, remove: removeImage } = useFieldArray({
-        control: form.control,
-        name: "images",
-    });
 
     const onSubmit = async (data: ProductFormValues) => {
         startTransition(async () => {
@@ -157,29 +154,23 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                                     <CardDescription>Update image URLs for your product gallery.</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
-                                     {imageFields.map((field, index) => (
-                                        <FormField
-                                            key={field.id}
-                                            control={form.control}
-                                            name={`images.${index}`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className={index !== 0 ? "sr-only" : ""}>Image URL {index + 1}</FormLabel>
-                                                    <div className="flex items-center gap-2">
-                                                        <FormControl>
-                                                            <Input {...field} placeholder="https://placehold.co/600x400.png" />
-                                                        </FormControl>
-                                                        <Button type="button" variant="destructive" size="icon" onClick={() => removeImage(index)}><Trash2 className="h-4 w-4" /></Button>
-                                                    </div>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    ))}
-                                    <Button type="button" variant="outline" size="sm" onClick={() => appendImage('')}>
-                                        <PlusCircle className="mr-2 h-4 w-4" />
-                                        Add Image URL
-                                    </Button>
+                                    <FormField
+                                        control={form.control}
+                                        name="images"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Product Images</FormLabel>
+                                                <FormControl>
+                                                    <ImageUpload
+                                                        images={field.value || []}
+                                                        onImagesChange={field.onChange}
+                                                        maxImages={8}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
                                 </CardContent>
                             </Card>
                         </div>
@@ -251,6 +242,15 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                                             <FormLabel>Colors</FormLabel>
                                             <FormControl><Input placeholder="e.g., Black,White,Pink" value={Array.isArray(field.value) ? field.value.join(',') : ''} onChange={(e) => field.onChange(e.target.value.split(',').map(s => s.trim()))} /></FormControl>
                                             <FormDescription>Comma-separated list of colors.</FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                    
+                                    <FormField control={form.control} name="stockQuantity" render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Stock Quantity</FormLabel>
+                                            <FormControl><Input type="number" placeholder="0" {...field} /></FormControl>
+                                            <FormDescription>How many units are in stock</FormDescription>
                                             <FormMessage />
                                         </FormItem>
                                     )} />
