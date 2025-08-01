@@ -1,3 +1,5 @@
+'use server';
+
 import { revalidatePath } from 'next/cache';
 import { collection, addDoc, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from './firebase';
