@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import Logo from '@/components/icons/Logo';
 import { cn } from '@/lib/utils';
 import { CartWidget } from '@/components/cart/cart-widget';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import styles from './header.module.css';
 
 const navLinks = [
@@ -78,17 +79,39 @@ export default function Header() {
               variant="ghost" 
               size="icon" 
               className="hidden md:inline-flex group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+              asChild
             >
-              <Heart className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors group-hover:fill-current" />
+              <Link href="/wishlist">
+                <Heart className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors group-hover:fill-current" />
+              </Link>
             </Button>
             
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
-            >
-              <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
-            </Button>
+            {/* Authentication */}
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+                >
+                  <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+                </Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    avatarBox: 'w-10 h-10 rounded-full border-2 border-primary/20 hover:border-primary/40 transition-colors',
+                    userButtonPopoverCard: 'glass-surface border-primary/20',
+                    userButtonPopoverActionButton: 'text-foreground hover:bg-primary/10',
+                    userButtonPopoverActionButtonText: 'text-foreground',
+                    userButtonPopoverFooter: 'hidden'
+                  }
+                }}
+                afterSignOutUrl="/"
+              />
+            </SignedIn>
             
             <CartWidget />
             
@@ -156,9 +179,33 @@ export default function Header() {
               variant="ghost" 
               size="icon" 
               className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+              asChild
             >
-              <Heart className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+              <Link href="/wishlist">
+                <Heart className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+              </Link>
             </Button>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+                >
+                  <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+                </Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    avatarBox: 'w-10 h-10 rounded-full border-2 border-primary/20 hover:border-primary/40 transition-colors'
+                  }
+                }}
+                afterSignOutUrl="/"
+              />
+            </SignedIn>
           </div>
         </div>
       </div>

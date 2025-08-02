@@ -53,6 +53,14 @@ export type Review = {
     createdAt: Date;
 }
 
+export type WishlistItem = {
+    id: string;
+    userId: string;
+    productId: string;
+    product: Product;
+    createdAt: Date;
+}
+
 
 // We still need a schema for the form on the client side.
 export const ProductSchema = z.object({

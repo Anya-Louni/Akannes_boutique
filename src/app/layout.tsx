@@ -8,6 +8,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { CartProvider } from '@/context/cart-context';
 import ClickSpark from '@/components/ui/click-spark';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -34,17 +35,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("scroll-smooth", playfair.variable, ptSans.variable)}>
-      <body className={cn('antialiased min-h-screen flex flex-col font-body')}>
-        <ClickSpark>
-          <CartProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-            <Toaster />
-          </CartProvider>
-        </ClickSpark>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={cn("scroll-smooth", playfair.variable, ptSans.variable)}>
+        <body className={cn('antialiased min-h-screen flex flex-col font-body')}>
+          <ClickSpark>
+            <CartProvider>
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+              <Toaster />
+            </CartProvider>
+          </ClickSpark>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
