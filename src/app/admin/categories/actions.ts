@@ -1,6 +1,6 @@
 'use server';
 
-import { addCategory, getCategories } from '@/lib/categories';
+import { addCategory, getCategories, deleteCategory } from '@/lib/categories';
 import { revalidatePath } from 'next/cache';
 
 export async function createCategory(name: string): Promise<{ success: boolean; error?: string }> {
@@ -23,6 +23,21 @@ export async function createCategory(name: string): Promise<{ success: boolean; 
          return { success: false, error: error.message };
     }
     return { success: false, error: 'An unexpected error occurred.' };
+  }
+}
+
+export async function removeCategory(id: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    await deleteCategory(id);
+    
+    // Revalidate paths to update the UI immediately
+    revalidatePath('/admin/categories');
+    revalidatePath('/shop');
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    return { success: false, error: 'Failed to delete category.' };
   }
 }
 

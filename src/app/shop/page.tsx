@@ -7,7 +7,15 @@ import type { Product } from '@/lib/types';
 async function getProducts() {
     const productsCol = collection(db, 'products');
     const productSnapshot = await getDocs(productsCol);
-    const productList = productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
+    const productList = productSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        // Convert Firestore timestamp to serializable date
+        createdAt: data.createdAt?.toDate?.() || new Date(),
+      } as unknown as Product;
+    });
     return productList;
 }
 

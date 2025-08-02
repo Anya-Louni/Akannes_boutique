@@ -51,7 +51,7 @@ export function Hero() {
           Discover enchanting fashion inspired by the magical world of Japanese aesthetics. Live your fairytale.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <Button asChild size="lg" className="rounded-full">
+          <Button asChild size="lg" className="rounded-full bg-pink-700 hover:bg-pink-800 text-white shadow-lg hover:scale-105 transition-transform">
             <Link href="/shop">
               Shop Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

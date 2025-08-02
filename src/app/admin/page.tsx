@@ -18,10 +18,10 @@ export default async function AdminDashboardPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-headline font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
               ✨ Akanne's Dashboard
             </h1>
-            <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your magical boutique.</p>
+            <p className="text-pink-600/70 mt-2 font-body">Welcome back! Here's what's happening with your magical boutique.</p>
           </div>
         </div>
 
@@ -29,14 +29,14 @@ export default async function AdminDashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
           <Card className="bg-gradient-to-br from-pink-100/80 to-rose-100/60 border border-pink-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-sm font-medium text-pink-700">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-semibold text-pink-700 font-body">Total Revenue</CardTitle>
               <div className="p-2 bg-pink-200/40 rounded-lg">
                 <DollarSign className="h-4 w-4 text-pink-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-pink-800 mb-1">{formatCurrency(stats.totalRevenue)}</div>
-              <div className="flex items-center text-xs text-pink-600">
+              <div className="text-2xl font-bold text-pink-800 mb-1 font-headline">{formatCurrency(stats.totalRevenue)}</div>
+              <div className="flex items-center text-xs text-pink-600 font-body">
                 {stats.monthlyGrowth.revenue >= 0 ? (
                   <TrendingUp className="h-3 w-3 mr-1" />
                 ) : (
@@ -49,14 +49,14 @@ export default async function AdminDashboardPage() {
 
           <Card className="bg-gradient-to-br from-rose-100/80 to-pink-100/60 border border-rose-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-sm font-medium text-rose-700">Sales</CardTitle>
+              <CardTitle className="text-sm font-semibold text-rose-700 font-body">Sales</CardTitle>
               <div className="p-2 bg-rose-200/40 rounded-lg">
                 <ShoppingBag className="h-4 w-4 text-rose-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-rose-800 mb-1">{stats.totalSales.toLocaleString()}</div>
-              <div className="flex items-center text-xs text-rose-600">
+              <div className="text-2xl font-bold text-rose-800 mb-1 font-headline">{stats.totalSales.toLocaleString()}</div>
+              <div className="flex items-center text-xs text-rose-600 font-body">
                 {stats.monthlyGrowth.sales >= 0 ? (
                   <TrendingUp className="h-3 w-3 mr-1" />
                 ) : (
@@ -67,16 +67,16 @@ export default async function AdminDashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-purple-100/80 to-pink-100/60 border border-purple-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
+          <Card className="bg-gradient-to-br from-pink-100/80 to-rose-100/60 border border-pink-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-sm font-medium text-purple-700">Customers</CardTitle>
-              <div className="p-2 bg-purple-200/40 rounded-lg">
-                <Users className="h-4 w-4 text-purple-600" />
+              <CardTitle className="text-sm font-semibold text-pink-700 font-body">Customers</CardTitle>
+              <div className="p-2 bg-pink-200/40 rounded-lg">
+                <Users className="h-4 w-4 text-pink-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-800 mb-1">{stats.totalCustomers.toLocaleString()}</div>
-              <div className="flex items-center text-xs text-purple-600">
+              <div className="text-2xl font-bold text-pink-800 mb-1 font-headline">{stats.totalCustomers.toLocaleString()}</div>
+              <div className="flex items-center text-xs text-pink-600 font-body">
                 {stats.monthlyGrowth.customers >= 0 ? (
                   <TrendingUp className="h-3 w-3 mr-1" />
                 ) : (
@@ -87,18 +87,18 @@ export default async function AdminDashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-yellow-100/80 to-pink-100/60 border border-yellow-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
+          <Card className="bg-gradient-to-br from-rose-100/80 to-pink-100/60 border border-rose-200/50 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-sm font-medium text-yellow-700">Average Rating</CardTitle>
-              <div className="p-2 bg-yellow-200/40 rounded-lg">
-                <Star className="h-4 w-4 text-yellow-600" />
+              <CardTitle className="text-sm font-semibold text-rose-700 font-body">Average Rating</CardTitle>
+              <div className="p-2 bg-rose-200/40 rounded-lg">
+                <Star className="h-4 w-4 text-rose-600" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-800 mb-1">
+              <div className="text-2xl font-bold text-rose-800 mb-1 font-headline">
                 {stats.averageRating > 0 ? `${stats.averageRating.toFixed(1)} ⭐` : 'No ratings'}
               </div>
-              <div className="flex items-center text-xs text-yellow-600">
+              <div className="flex items-center text-xs text-rose-600 font-body">
                 <Heart className="h-3 w-3 mr-1" />
                 Based on {stats.totalReviews} reviews
               </div>

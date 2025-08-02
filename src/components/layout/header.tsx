@@ -9,7 +9,12 @@ import Logo from '@/components/icons/Logo';
 import { cn } from '@/lib/utils';
 import { CartWidget } from '@/components/cart/cart-widget';
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SearchModal } from './search-modal';
 import styles from './header.module.css';
+
+// Check if Clerk is properly configured
+const hasClerkKeys = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && 
+                    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -19,6 +24,7 @@ const navLinks = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-primary/20 overflow-hidden">
@@ -41,7 +47,7 @@ export default function Header() {
                 <h1 className="font-headline text-xl font-bold text-primary">
                   Akanne's
                 </h1>
-                <p className="text-xs text-primary/70 -mt-1">Magical Boutique</p>
+                <p className="text-xs text-primary/70 -mt-1">Boutique</p>
               </div>
             </Link>
           </div>
@@ -56,7 +62,7 @@ export default function Header() {
                 className="group relative px-6 py-2 rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-105"
               >
                 <Link href={href} className="flex items-center space-x-2">
-                  <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <span className="font-semibold text-foreground group-hover:text-primary text-lg transition-colors">
                     {label}
                   </span>
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
@@ -71,6 +77,7 @@ export default function Header() {
               variant="ghost" 
               size="icon" 
               className="hidden md:inline-flex group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+              onClick={() => setIsSearchOpen(true)}
             >
               <Search className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
             </Button>
@@ -87,31 +94,46 @@ export default function Header() {
             </Button>
             
             {/* Authentication */}
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
-                >
+            {hasClerkKeys ? (
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+                    >
+                      <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+                    </Button>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        avatarBox: 'w-10 h-10 rounded-full border-2 border-primary/20 hover:border-primary/40 transition-colors',
+                        userButtonPopoverCard: 'glass-surface border-primary/20',
+                        userButtonPopoverActionButton: 'text-foreground hover:bg-primary/10',
+                        userButtonPopoverActionButtonText: 'text-foreground',
+                        userButtonPopoverFooter: 'hidden'
+                      }
+                    }}
+                    afterSignOutUrl="/"
+                  />
+                </SignedIn>
+              </>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+                asChild
+              >
+                <Link href="/profile">
                   <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton 
-                appearance={{
-                  elements: {
-                    avatarBox: 'w-10 h-10 rounded-full border-2 border-primary/20 hover:border-primary/40 transition-colors',
-                    userButtonPopoverCard: 'glass-surface border-primary/20',
-                    userButtonPopoverActionButton: 'text-foreground hover:bg-primary/10',
-                    userButtonPopoverActionButtonText: 'text-foreground',
-                    userButtonPopoverFooter: 'hidden'
-                  }
-                }}
-                afterSignOutUrl="/"
-              />
-            </SignedIn>
+                </Link>
+              </Button>
+            )}
             
             <CartWidget />
             
@@ -172,6 +194,7 @@ export default function Header() {
               variant="ghost" 
               size="icon" 
               className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+              onClick={() => setIsSearchOpen(true)}
             >
               <Search className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
             </Button>
@@ -185,30 +208,47 @@ export default function Header() {
                 <Heart className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
               </Link>
             </Button>
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
-                >
+            {hasClerkKeys ? (
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+                    >
+                      <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+                    </Button>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        avatarBox: 'w-10 h-10 rounded-full border-2 border-primary/20 hover:border-primary/40 transition-colors'
+                      }
+                    }}
+                    afterSignOutUrl="/"
+                  />
+                </SignedIn>
+              </>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="group relative rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+                asChild
+              >
+                <Link href="/profile">
                   <User className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton 
-                appearance={{
-                  elements: {
-                    avatarBox: 'w-10 h-10 rounded-full border-2 border-primary/20 hover:border-primary/40 transition-colors'
-                  }
-                }}
-                afterSignOutUrl="/"
-              />
-            </SignedIn>
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>
+      
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 }

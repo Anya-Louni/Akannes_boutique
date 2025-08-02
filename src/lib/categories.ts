@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, query, where, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase';
 import type { Category } from './types';
 
@@ -25,4 +25,14 @@ export async function addCategory(name: string): Promise<string> {
 export async function getCategories(): Promise<Category[]> {
   const snapshot = await getDocs(categoriesCollection);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Category));
+}
+
+// Function to delete a category
+export async function deleteCategory(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, 'categories', id));
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    throw new Error('Failed to delete category');
+  }
 }

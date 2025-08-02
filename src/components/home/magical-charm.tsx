@@ -70,7 +70,7 @@ export async function MagicalCharm() {
                     </Card>
                 </Link>
             </div>
-            <div className="animate-fadeIn" style={{ animationDelay: '200ms' }}>
+            <div className="animate-fadeIn animation-delay-200">
                  <div className="flex items-center gap-2 text-primary">
                     <Wand2 className="h-6 w-6" />
                     <h3 className="text-xl font-semibold">This Month's Magical Charm</h3>
@@ -81,7 +81,7 @@ export async function MagicalCharm() {
                  <p className="mt-4 text-lg text-foreground/70 line-clamp-4">
                     {product.description}
                  </p>
-                 <Button asChild size="lg" className="mt-8 rounded-full">
+                 <Button asChild size="lg" className="mt-8 rounded-full bg-pink-700 hover:bg-pink-800 text-white shadow-lg hover:scale-105 transition-transform">
                     <Link href={`/shop/${product.slug}`}>
                         Discover the Magic <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>

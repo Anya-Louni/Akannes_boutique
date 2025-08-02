@@ -9,8 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { createCategory, fetchCategories } from './actions';
-import { Loader2, PlusCircle, Tag } from 'lucide-react';
+import { createCategory, fetchCategories, removeCategory } from './actions';
+import { Loader2, PlusCircle, Tag, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Category } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
@@ -54,6 +54,29 @@ export default function CategoriesPage() {
   useEffect(() => {
     loadCategories();
   }, []);
+
+  const handleDeleteCategory = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to delete the category "${name}"?`)) {
+      return;
+    }
+
+    startTransition(async () => {
+      const result = await removeCategory(id);
+      if (result.success) {
+        toast({
+          title: 'Success!',
+          description: 'Category deleted successfully.',
+        });
+        loadCategories(); // Refresh the list
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: result.error || 'Failed to delete category.',
+        });
+      }
+    });
+  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     startTransition(async () => {
@@ -129,10 +152,18 @@ export default function CategoriesPage() {
             ) : categories.length > 0 ? (
                  <div className="flex flex-wrap gap-2">
                     {categories.map((cat) => (
-                        <Badge key={cat.id} variant="secondary" className="text-sm flex items-center gap-1">
+                        <div key={cat.id} className="flex items-center gap-2 px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm group">
                             <Tag className="h-3 w-3" />
-                            {cat.name}
-                        </Badge>
+                            <span>{cat.name}</span>
+                            <button
+                                onClick={() => handleDeleteCategory(cat.id, cat.name)}
+                                disabled={isPending}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity hover:text-red-600 disabled:opacity-50"
+                                aria-label={`Delete ${cat.name} category`}
+                            >
+                                <Trash2 className="h-3 w-3" />
+                            </button>
+                        </div>
                     ))}
                 </div>
             ) : (

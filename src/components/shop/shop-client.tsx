@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import type { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/product/product-card';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,9 @@ interface ShopClientProps {
 }
 
 export default function ShopClient({ products }: ShopClientProps) {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('search') || '';
+  
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isFetchingCategories, setIsFetchingCategories] = useState(true);
@@ -45,6 +49,15 @@ export default function ShopClient({ products }: ShopClientProps) {
   const applyFilters = () => {
     let tempProducts = [...products];
 
+    // Apply search filter first
+    if (searchQuery) {
+      tempProducts = tempProducts.filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
     if (inStockOnly) {
       tempProducts = tempProducts.filter(p => p.inStock);
     }
@@ -65,12 +78,12 @@ export default function ShopClient({ products }: ShopClientProps) {
     setPriceRange([0, 20000]);
     setSize('all');
     setInStockOnly(true);
-    const defaultFiltered = products.filter(p => p.inStock);
-    setFilteredProducts(defaultFiltered);
+    // Don't reset search query as it comes from URL
+    applyFilters();
   };
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useMemo(applyFilters, [category, priceRange, size, inStockOnly, products]);
+  useMemo(applyFilters, [category, priceRange, size, inStockOnly, products, searchQuery]);
 
   const FiltersComponent = () => (
     <div className="space-y-6">
@@ -132,8 +145,21 @@ export default function ShopClient({ products }: ShopClientProps) {
       </aside>
       
       <main className="lg:w-3/4 xl:w-4/5">
+        {searchQuery && (
+          <div className="mb-6 p-4 bg-pink-50/80 border border-pink-200/50 rounded-xl">
+            <h3 className="font-headline text-lg text-pink-700">
+              Search results for "{searchQuery}"
+            </h3>
+            <p className="text-sm text-pink-600/70">
+              {filteredProducts.length} products found
+            </p>
+          </div>
+        )}
+        
         <div className="flex justify-between items-center mb-6">
-          <p className="text-muted-foreground">{filteredProducts.length} products found</p>
+          <p className="text-muted-foreground">
+            {!searchQuery && `${filteredProducts.length} products found`}
+          </p>
           <div className="lg:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -155,7 +181,7 @@ export default function ShopClient({ products }: ShopClientProps) {
               <div
                 key={product.id}
                 className="animate-popIn"
-                style={{ animationDelay: `${index * 100}ms` }}
+                style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
               >
                 <ProductCard product={product} />
               </div>

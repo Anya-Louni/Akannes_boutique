@@ -92,7 +92,15 @@ export async function deleteProduct(id: string): Promise<{ success: boolean; err
 // Function to get all products
 export async function getProducts(): Promise<Product[]> {
   const snapshot = await getDocs(productsCollection);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
+  return snapshot.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      // Convert Firebase Timestamp to Date for serialization
+      createdAt: data.createdAt?.toDate?.() || new Date(),
+    } as unknown as Product;
+  });
 }
 
 // Function to get a single product by ID
@@ -100,7 +108,13 @@ export async function getProductById(id: string): Promise<Product | null> {
     const docRef = doc(db, 'products', id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-        return { id: docSnap.id, ...docSnap.data() } as Product;
+        const data = docSnap.data();
+        return {
+            id: docSnap.id,
+            ...data,
+            // Convert Firebase Timestamp to Date for serialization
+            createdAt: data.createdAt?.toDate?.() || new Date(),
+        } as unknown as Product;
     }
     return null;
 }
