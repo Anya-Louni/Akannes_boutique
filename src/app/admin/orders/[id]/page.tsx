@@ -16,11 +16,12 @@ interface OrderDetailsPageProps {
 }
 
 export default async function OrderDetailsPage({ params }: OrderDetailsPageProps) {
-    const order = await getOrderById(params.id);
+    try {
+        const order = await getOrderById(params.id);
 
-    if (!order) {
-        notFound();
-    }
+        if (!order) {
+            notFound();
+        }
     
     const getStatusVariant = (status: any) => {
         switch (status) {
@@ -131,5 +132,9 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
                 </div>
             </div>
         </div>
-    )
+    );
+    } catch (error) {
+        console.error('Error fetching order:', error);
+        notFound();
+    }
 }

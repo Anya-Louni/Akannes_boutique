@@ -15,6 +15,7 @@ import {
 import Logo from '@/components/icons/Logo';
 import { LayoutDashboard, ShoppingBag, Users, Star, Settings, LogOut, Home, Tag, Package } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Dock from '@/components/admin/Dock';
 import StockAlerts from '@/components/admin/stock-alerts';
 
@@ -23,6 +24,8 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50/50 via-background to-primary/5 relative pb-32">
       {/* Lace border pattern at top */}
@@ -51,37 +54,37 @@ export default function AdminLayout({
           {
             icon: <LayoutDashboard className="h-6 w-6" />,
             label: 'Dashboard',
-            onClick: () => window.location.href = '/admin',
+            onClick: () => router.push('/admin'),
           },
           {
             icon: <Tag className="h-6 w-6" />,
             label: 'Categories',
-            onClick: () => window.location.href = '/admin/categories',
+            onClick: () => router.push('/admin/categories'),
           },
           {
             icon: <ShoppingBag className="h-6 w-6" />,
             label: 'Products',
-            onClick: () => window.location.href = '/admin/products',
+            onClick: () => router.push('/admin/products'),
           },
           {
             icon: <Package className="h-6 w-6" />,
             label: 'Orders',
-            onClick: () => window.location.href = '/admin/orders',
+            onClick: () => router.push('/admin/orders'),
           },
           {
             icon: <Star className="h-6 w-6" />,
             label: 'Reviews',
-            onClick: () => window.location.href = '/admin/reviews',
+            onClick: () => router.push('/admin/reviews'),
           },
           {
             icon: <Settings className="h-6 w-6" />,
             label: 'Settings',
-            onClick: () => window.location.href = '/admin/settings',
+            onClick: () => router.push('/admin/settings'),
           },
           {
             icon: <Home className="h-6 w-6" />,
             label: 'Store',
-            onClick: () => window.location.href = '/',
+            onClick: () => router.push('/'),
           },
         ]}
       />

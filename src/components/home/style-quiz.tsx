@@ -9,23 +9,38 @@ import type { Product } from '@/lib/types';
 import { Skeleton } from '../ui/skeleton';
 
 async function getCharmProduct(): Promise<Product | null> {
-    const productsRef = collection(db, 'products');
-    const q = query(productsRef, where('isFeatured', '==', true), limit(1));
-    const querySnapshot = await getDocs(q);
+    try {
+        const productsRef = collection(db, 'products');
+        const q = query(productsRef, where('isFeatured', '==', true), limit(1));
+        const querySnapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
-        // As a fallback, get the most recently created product
-        const allProductsQuery = query(collection(db, 'products'), limit(1));
-        const allProductsSnapshot = await getDocs(allProductsQuery);
-        if (allProductsSnapshot.empty) {
-            return null;
+        if (querySnapshot.empty) {
+            // As a fallback, get the most recently created product
+            const allProductsQuery = query(collection(db, 'products'), limit(1));
+            const allProductsSnapshot = await getDocs(allProductsQuery);
+            if (allProductsSnapshot.empty) {
+                return null;
+            }
+            const doc = allProductsSnapshot.docs[0];
+            const data = doc.data();
+            return { 
+                id: doc.id, 
+                ...data,
+                createdAt: data.createdAt?.toDate?.() || new Date(),
+            } as unknown as Product;
         }
-        const doc = allProductsSnapshot.docs[0];
-        return { id: doc.id, ...doc.data() } as Product;
+        
+        const doc = querySnapshot.docs[0];
+        const data = doc.data();
+        return { 
+            id: doc.id, 
+            ...data,
+            createdAt: data.createdAt?.toDate?.() || new Date(),
+        } as unknown as Product;
+    } catch (error) {
+        console.error('Error fetching charm product:', error);
+        return null;
     }
-    
-    const doc = querySnapshot.docs[0];
-    return { id: doc.id, ...doc.data() } as Product;
 }
 
 

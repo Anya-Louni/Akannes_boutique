@@ -20,6 +20,8 @@ export function useLazyImage() {
 // Custom hook for performance monitoring
 export function usePerformance() {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Preload critical images
     const criticalImages = [
       '/akk_logo_font.png',
