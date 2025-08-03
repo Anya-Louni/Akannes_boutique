@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import type { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/product/product-card';
@@ -53,7 +53,8 @@ export default function ShopClient({ products }: ShopClientProps) {
     loadCategories();
   }, []);
 
-  const applyFilters = () => {
+  // Move applyFilters to useCallback to prevent unnecessary re-renders
+  const applyFilters = useCallback(() => {
     let tempProducts = [...products];
 
     // Apply search filter first
@@ -78,19 +79,20 @@ export default function ShopClient({ products }: ShopClientProps) {
     tempProducts = tempProducts.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
 
     setFilteredProducts(tempProducts);
-  };
-  
+  }, [products, searchQuery, inStockOnly, category, size, priceRange]);
+
   const resetFilters = () => {
     setCategory('all');
     setPriceRange([0, 20000]);
     setSize('all');
     setInStockOnly(true);
     // Don't reset search query as it comes from URL
-    applyFilters();
   };
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useMemo(applyFilters, [category, priceRange, size, inStockOnly, products, searchQuery]);
+
+  // Apply filters whenever dependencies change
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const FiltersComponent = () => (
     <div className="space-y-6">
@@ -188,7 +190,7 @@ export default function ShopClient({ products }: ShopClientProps) {
               <div
                 key={product.id}
                 className="animate-popIn"
-                style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                data-animation-delay={index * 100}
               >
                 <ProductCard product={product} />
               </div>
