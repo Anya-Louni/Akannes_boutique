@@ -31,7 +31,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
     // We pass the full product object and the selected size and quantity
     addItem(product, quantity, selectedSize);
     toast({
-      title: "Added to cart! ✨",
+      title: "Added to cart!",
       description: `${quantity} x ${product.name} (${selectedSize}) has been added.`,
     });
   };

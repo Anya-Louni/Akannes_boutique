@@ -21,7 +21,10 @@ interface ShopClientProps {
 
 export default function ShopClient({ products }: ShopClientProps) {
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get('search') || '';
+  const [mounted, setMounted] = useState(false);
+  
+  // Only get search params after component mounts
+  const searchQuery = mounted ? (searchParams.get('search') || '') : '';
   
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -30,6 +33,10 @@ export default function ShopClient({ products }: ShopClientProps) {
   const [priceRange, setPriceRange] = useState([0, 20000]);
   const [size, setSize] = useState('all');
   const [inStockOnly, setInStockOnly] = useState(true);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     async function loadCategories() {

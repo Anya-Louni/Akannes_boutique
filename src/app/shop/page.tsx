@@ -1,8 +1,14 @@
-import ShopClient from '@/components/shop/shop-client';
+import dynamic from 'next/dynamic';
 import { Sparkles } from 'lucide-react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import type { Product } from '@/lib/types';
+
+// Dynamic import with no SSR to avoid useSearchParams issues
+const ShopClient = dynamic(() => import('@/components/shop/shop-client'), {
+  ssr: false,
+  loading: () => <div className="text-center py-8">Loading shop...</div>
+});
 
 async function getProducts() {
     try {
