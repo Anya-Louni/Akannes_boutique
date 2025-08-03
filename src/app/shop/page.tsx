@@ -5,18 +5,23 @@ import { db } from '@/lib/firebase';
 import type { Product } from '@/lib/types';
 
 async function getProducts() {
-    const productsCol = collection(db, 'products');
-    const productSnapshot = await getDocs(productsCol);
-    const productList = productSnapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        ...data,
-        // Convert Firestore timestamp to serializable date
-        createdAt: data.createdAt?.toDate?.() || new Date(),
-      } as unknown as Product;
-    });
-    return productList;
+    try {
+        const productsCol = collection(db, 'products');
+        const productSnapshot = await getDocs(productsCol);
+        const productList = productSnapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+            // Convert Firestore timestamp to serializable date
+            createdAt: data.createdAt?.toDate?.() || new Date(),
+          } as unknown as Product;
+        });
+        return productList;
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        return [];
+    }
 }
 
 export default async function ShopPage() {

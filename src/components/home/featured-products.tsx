@@ -5,18 +5,23 @@ import { db } from '@/lib/firebase';
 import type { Product } from '@/lib/types';
 
 async function getFeaturedProducts() {
-    const productsRef = collection(db, 'products');
-    const q = query(productsRef, where('isFeatured', '==', true), limit(4));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-            id: doc.id,
-            ...data,
-            // Convert Firebase Timestamp to Date for serialization
-            createdAt: data.createdAt?.toDate?.() || new Date(),
-        } as unknown as Product;
-    });
+    try {
+        const productsRef = collection(db, 'products');
+        const q = query(productsRef, where('isFeatured', '==', true), limit(4));
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+                // Convert Firebase Timestamp to Date for serialization
+                createdAt: data.createdAt?.toDate?.() || new Date(),
+            } as unknown as Product;
+        });
+    } catch (error) {
+        console.error('Error fetching featured products:', error);
+        return [];
+    }
 }
 
 

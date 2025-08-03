@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Handle missing environment variables gracefully
+  env: {
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'akkanes-magical-boutique',
+    NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 'AIzaSyAd2O7hI9IyaE96e1Q_G0WUW1q38svA9Tg',
+  },
   images: {
     remotePatterns: [
       {

@@ -13,24 +13,44 @@ interface ProductPageProps {
 }
 
 async function getProductBySlug(slug: string): Promise<Product | null> {
-    const productsRef = collection(db, 'products');
-    const q = query(productsRef, where('slug', '==', slug), limit(1));
-    const querySnapshot = await getDocs(q);
+    try {
+        const productsRef = collection(db, 'products');
+        const q = query(productsRef, where('slug', '==', slug), limit(1));
+        const querySnapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
+        if (querySnapshot.empty) {
+            return null;
+        }
+        const doc = querySnapshot.docs[0];
+        const data = doc.data();
+        return { 
+            id: doc.id, 
+            ...data,
+            // Convert Firestore timestamp to serializable date
+            createdAt: data.createdAt?.toDate?.() || new Date(),
+        } as unknown as Product;
+    } catch (error) {
+        console.error('Error fetching product:', error);
         return null;
     }
-    const doc = querySnapshot.docs[0];
-    return { id: doc.id, ...doc.data() } as Product;
 }
 
 export async function generateStaticParams() {
-    const productsCol = collection(db, 'products');
-    const productSnapshot = await getDocs(productsCol);
-    return productSnapshot.docs.map(doc => ({
-        slug: doc.data().slug,
-    }));
+    try {
+        const productsCol = collection(db, 'products');
+        const productSnapshot = await getDocs(productsCol);
+        return productSnapshot.docs.map(doc => ({
+            slug: doc.data().slug,
+        }));
+    } catch (error) {
+        console.log('Error generating static params:', error);
+        // Return empty array to allow dynamic rendering
+        return [];
+    }
 }
+
+// Enable dynamic routes for missing products
+export const dynamicParams = true;
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(params.slug);
