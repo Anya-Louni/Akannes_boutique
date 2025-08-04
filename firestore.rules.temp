@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // TEMPORARY: Allow all access for initial setup and testing
+    // TODO: Replace with proper authentication after setting up admin users
+    
+    // Products - Read only for public, write for now allowed for testing
+    match /products/{productId} {
+      allow read: if true; // Public can read products
+      allow write: if true; // TEMPORARY: Allow write for testing
+    }
+    
+    // Categories - Read only for public, write for testing
+    match /categories/{categoryId} {
+      allow read: if true; // Public can read categories
+      allow write: if true; // TEMPORARY: Allow write for testing
+    }
+    
+    // Orders - Allow all for now
+    match /orders/{orderId} {
+      allow read, write: if true; // TEMPORARY: Allow all for testing
+    }
+    
+    // Reviews - Allow all for now
+    match /reviews/{reviewId} {
+      allow read, write: if true; // TEMPORARY: Allow all for testing
+    }
+    
+    // Wishlist items - Allow all for now
+    match /wishlist/{userId}/items/{itemId} {
+      allow read, write: if true; // TEMPORARY: Allow all for testing
+    }
+    
+    // Admin settings - Allow all for now
+    match /settings/{settingId} {
+      allow read, write: if true; // TEMPORARY: Allow all for testing
+    }
+  }
+}
